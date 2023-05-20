@@ -1,5 +1,6 @@
 require('configs.plugins')
 require('theme.nvim-theme')
+require('theme.statusline')
 require('configs.treesitter-config')
 require('configs.cmp-config')
 require('configs.mason-config')
