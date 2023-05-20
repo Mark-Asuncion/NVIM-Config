@@ -5,7 +5,7 @@
 :set nohlsearch 
 :set number
 :set cursorline
-:set cursorlineopt=number
+" :set cursorlineopt=number
 " :set selection=exclusive
 :set tabstop=4
 :set shiftwidth=4
@@ -16,6 +16,6 @@ lua require('init')
 :hi CursorLineNr guifg=white
 " Gitgutter
 " :let g:gitgutter_git_executable = 'C:/Program Files/Git/bin/git.exe'
-:highlight! link SignColumn LineNr
+" :highlight! link SignColumn LineNr
 :let g:gitgutter_sign_allow_clobber = 1
 :set signcolumn=yes
