@@ -5,6 +5,7 @@
 :set nohlsearch 
 :set number
 :set cursorline
+:set nowrap
 " :set cursorlineopt=number
 " :set selection=exclusive
 :set tabstop=4

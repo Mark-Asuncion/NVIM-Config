@@ -27,3 +27,4 @@ al_symbols.notexists = ' x '
 vim.g.airline_symbols = al_symbols
 
 vim.cmd([[let g:airline#extensions#tabline#buffer_nr_show = 1]])
+-- vim.cmd([[let g:airline#extensions#bufferline#enabled = 0]])

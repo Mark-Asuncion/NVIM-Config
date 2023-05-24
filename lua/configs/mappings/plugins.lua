@@ -1,6 +1,8 @@
 -- tree keymaps
-vim.api.nvim_set_keymap('n','<leader>]', ':NvimTreeToggle<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<leader>[', ':NvimTreeFocus<CR>',{noremap=true,silent=true})
+-- vim.api.nvim_set_keymap('n','<leader>]', ':NvimTreeToggle<CR>',{noremap=true,silent=true})
+-- vim.api.nvim_set_keymap('n','<leader>[', ':NvimTreeFocus<CR>',{noremap=true,silent=true})
+vim.keymap.set('n','<leader>]',':NeoTreeShowToggle<CR>',{})
+vim.keymap.set('n','<leader>[',':NeoTreeFocus<CR>',{})
 
 -- comment keymaps
 vim.keymap.set('n',';', ':CommentToggle<CR>', {})

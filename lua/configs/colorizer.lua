@@ -2,9 +2,9 @@ require('colorizer').setup {
     'css';
     'javascript';
     'php';
-    css = { 
-        css 	= true;
-        mode 	= 'background';
+    css = {
+        css     = true;
+        mode    = 'background';
     };
     html = {
         RGB      = true;

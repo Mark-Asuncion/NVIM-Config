@@ -1,5 +1,4 @@
 local cmp = require'cmp'
-
 cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -71,11 +70,28 @@ cmp.setup.cmdline(':', {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-local servers = { 'rust_analyzer', 'tsserver' }
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "/",
+            package_pending = "-",
+            package_uninstalled = "X"
+        }
+    }
+})
+require("mason-lspconfig").setup()
+-- activate LSP
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+lspconfig.clangd.setup {
     capabilities = capabilities,
-  }
-end
+}
+lspconfig.html.setup {
+    capabilities = capabilities,
+}
+lspconfig.cssls.setup {
+    capabilities = capabilities,
+}
+lspconfig.pyright.setup {
+    capabilities = capabilities,
+}
