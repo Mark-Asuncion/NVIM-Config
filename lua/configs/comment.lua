@@ -16,3 +16,10 @@ require('nvim_comment').setup({
     -- Hook function to call before commenting takes place
     hook = nil
 })
+vim.cmd([[
+augroup set-commentstring-ag
+    autocmd!
+    autocmd BufEnter *.cpp,*c,*hpp,*.h :lua vim.api.nvim_buf_set_option(0, "commentstring", "// %s")
+    autocmd BufFilePost *.cpp,*c,*hpp,*.h :lua vim.api.nvim_buf_set_option(0, "commentstring", "// %s")
+augroup END
+]])

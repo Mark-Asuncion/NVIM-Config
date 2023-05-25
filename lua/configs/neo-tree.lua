@@ -71,7 +71,7 @@ require("neo-tree").setup({
     commands = {},
     window = {
         position = "left",
-        width = 30,
+        width = 40,
         mapping_options = {
             noremap = true,
             nowait = true,
@@ -131,7 +131,8 @@ require("neo-tree").setup({
     nesting_rules = {},
     filesystem = {
         filtered_items = {
-            visible = false, -- when true, they will just be displayed differently than normal items
+            find_by_full_path_words = true,
+            visible = true, -- when true, they will just be displayed differently than normal items
             hide_dotfiles = true,
             hide_gitignored = true,
             hide_hidden = true, -- only works on Windows for hidden files/directories
@@ -156,7 +157,7 @@ require("neo-tree").setup({
         follow_current_file = false, -- This will find and focus the file in the active buffer every
         -- time the current file is changed while the tree is open.
         group_empty_dirs = false, -- when true, empty folders will be grouped together
-        hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+        hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
         -- in whatever position is specified in window.position
         -- "open_current",  -- netrw disabled, opening a directory opens within the
         -- window like netrw would, regardless of window.position
@@ -184,7 +185,6 @@ require("neo-tree").setup({
                 ["<C-p>"] = "move_cursor_up",
             },
         },
-
         commands = {} -- Add a custom command or override a global one using the same function name
     },
     buffers = {
