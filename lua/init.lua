@@ -1,7 +1,7 @@
 require('configs.mappings.native')
 require('theme.nvim-theme')
 require('theme.statusline')
--- require('theme.bufferline-c')
+require('theme.bufferline-c')
 require('configs.plugins')
 require('configs.neo-tree')
 require('configs.treesitter')

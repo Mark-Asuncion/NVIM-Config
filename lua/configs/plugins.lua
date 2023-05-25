@@ -54,7 +54,9 @@ return require('packer').startup(function(use)
     use 'airblade/vim-gitgutter'
     use 'tpope/vim-fugitive'
     -- colorizer
-    use 'norcalli/nvim-colorizer.lua'
+    use { 'norcalli/nvim-colorizer.lua',
+        -- ft = {"*.html","*.css","*.svg"},
+    }
     -- nerdfonts
     use 'lambdalisue/nerdfont.vim'
     -- indent guide
