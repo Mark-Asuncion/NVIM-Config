@@ -57,12 +57,19 @@ return require('packer').startup(function(use)
         -- ft = {"*.html","*.css","*.svg"},
     }
     -- nerdfonts
-    use 'lambdalisue/nerdfont.vim'
+    use {
+        'lambdalisue/nerdfont.vim',
+        opt = true,
+    }
     -- indent guide
     use 'lukas-reineke/indent-blankline.nvim'
     -- treesitter syntax highlighter
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
+    }
+    use {
+        'dstein64/vim-startuptime',
+        opt = true,
     }
 end)
