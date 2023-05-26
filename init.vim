@@ -13,7 +13,7 @@
 :set expandtab
 :set termguicolors
 :set encoding=UTF-8
-lua require('init')
+lua require('settings')
 :hi CursorLineNr guifg=white
 " Gitgutter
 " :let g:gitgutter_git_executable = 'C:/Program Files/Git/bin/git.exe'

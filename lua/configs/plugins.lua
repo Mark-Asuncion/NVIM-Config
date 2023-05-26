@@ -35,7 +35,6 @@ return require('packer').startup(function(use)
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    -- nvim tree
     use 'nvim-tree/nvim-web-devicons'
     -- use 'nvim-tree/nvim-tree.lua'
     use 'MunifTanjim/nui.nvim'
