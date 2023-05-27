@@ -70,7 +70,11 @@ return require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
     -- colorizer
     use { 'norcalli/nvim-colorizer.lua',
-        -- ft = {"*.html","*.css","*.svg"},
+        opt = true,
+        ft = {"*.html","*.css","*.svg"},
+        config = function()
+            require('configs.colorizer')
+        end,
     }
     -- nerdfonts
     use {
