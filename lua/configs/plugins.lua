@@ -32,6 +32,19 @@ return require('packer').startup(function(use)
     use 'nvim-lua/plenary.nvim'
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        keys = {
+            {'n','<leader>ff'},
+            {'n','<leader>ft'},
+            {'n','<leader>fg'},
+            {'n','<leader>gg'},
+            {'n','<leader>fb'},
+        },
+        cmd = {
+            'Bfind',
+        },
+        config = function()
+            require('configs.telescope')
+        end,
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
@@ -41,6 +54,9 @@ return require('packer').startup(function(use)
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
+        config = function()
+            require('configs.neo-tree')
+        end,
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended

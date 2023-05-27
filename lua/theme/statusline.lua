@@ -1,13 +1,14 @@
-vim.cmd("let g:airline#extensions#tabline#enabled = 1")
-vim.cmd([[let g:airline#extensions#tabline#left_sep = ' ']])
-vim.cmd([[let g:airline#extensions#tabline#left_alt_sep = '|']])
-vim.cmd([[let g:airline#extensions#tabline#formatter = 'default']])
+-- vim.cmd("let g:airline#extensions#tabline#enabled = 1")
+-- vim.cmd([[let g:airline#extensions#tabline#left_sep = ' ']])
+-- vim.cmd([[let g:airline#extensions#tabline#left_alt_sep = '|']])
+-- vim.cmd([[let g:airline#extensions#tabline#formatter = 'default']])
 vim.cmd([[let g:airline_theme='deus']])
 if vim.g.airline_symbols == nil then
     vim.g.airline_symbols = {}
 end
 vim.g.airline_powerline_fonts = 1
-vim.g.airline_stl_path_style = 'short'
+-- vim.g.airline_stl_path_style = 'short'
+vim.g.airline_section_c = '%F'
 vim.g.airline_left_sep = ''
 vim.g.airline_left_alt_sep = ''
 vim.g.airline_right_sep = ''
