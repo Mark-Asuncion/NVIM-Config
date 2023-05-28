@@ -8,6 +8,15 @@ return require('packer').startup(function(use)
     use 'folke/tokyonight.nvim'
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
+    -- Dashboard
+    use {
+        'goolord/alpha-nvim',
+        requires = { 'nvim-tree/nvim-web-devicons' },
+        event = "VimEnter",
+        config = function ()
+            require'alpha'.setup(require'alpha.themes.dashboard'.config)
+        end,
+    }
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'williamboman/mason.nvim'
@@ -54,14 +63,16 @@ return require('packer').startup(function(use)
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
-        config = function()
-            require('configs.neo-tree')
-        end,
+        event = "BufEnter",
+        -- event = "VimEnter",
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
         },
+        config = function()
+            require('configs.neo-tree')
+        end,
     }
     -- bufferline
     use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
