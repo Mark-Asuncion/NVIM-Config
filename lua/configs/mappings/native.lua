@@ -14,10 +14,6 @@ vim.keymap.set('v','P','"0P',{})
 -- buffer nav
 vim.api.nvim_set_keymap('n','<leader>n', ':bn<CR>', {noremap=true})
 vim.api.nvim_set_keymap('n','<leader>P', ':bp<CR>', {noremap=true})
--- closed pairs
-vim.api.nvim_set_keymap('i','{', '{}<left>', {noremap=true})
-vim.api.nvim_set_keymap('i','{<CR>', '{<CR>}<ESC>O', {noremap=true})
-vim.api.nvim_set_keymap('i','(', '()<left>', {noremap=true})
-vim.api.nvim_set_keymap('i','[', '[]<left>', {noremap=true})
-vim.api.nvim_set_keymap('i','"', '""<left>', {noremap=true})
-vim.api.nvim_set_keymap('i','\'', '\'\'<left>', {noremap=true})
+-- quickfix navi
+vim.keymap.set('n','<C-j>',':cn<CR>',{})
+vim.keymap.set('n','<C-k>',':cp<CR>',{})

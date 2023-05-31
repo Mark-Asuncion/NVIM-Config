@@ -14,7 +14,19 @@ return require('packer').startup(function(use)
         requires = { 'nvim-tree/nvim-web-devicons' },
         event = "VimEnter",
         config = function ()
-            require'alpha'.setup(require'alpha.themes.dashboard'.config)
+         local alpha = require'alpha'
+         local dashboard = require'alpha.themes.dashboard'
+         dashboard.section.buttons.val = {
+            dashboard.button( "e", "  New file" , ":ene <BAR> startinsert <CR>"),
+            -- dashboard.button("SPC f f", "󰈞  Find file"),
+            -- dashboard.button("SPC f h", "󰊄  Recently opened files"),
+            -- dashboard.button("SPC f r", "  Frecency/MRU"),
+            -- dashboard.button("SPC f g (X)", "󰈬  Find word","<CR>"),
+            -- dashboard.button("SPC f m", "  Jump to bookmarks"),
+            -- dashboard.button("SPC s l", "  Open last session"),
+            dashboard.button( "q", "  Quit NVIM" , ":qa<CR>"),
+         }
+         alpha.setup(dashboard.config)
         end,
     }
     -- LSP
@@ -63,8 +75,8 @@ return require('packer').startup(function(use)
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
-        event = "BufEnter",
-        -- event = "VimEnter",
+        -- event = "BufEnter",
+        event = "VimEnter",
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -102,5 +114,13 @@ return require('packer').startup(function(use)
     use {
         'dstein64/vim-startuptime',
         opt = true,
+    }
+    -- autopairs
+    use {
+        "windwp/nvim-autopairs",
+        event = 'VimEnter',
+        config = function()
+            require("nvim-autopairs").setup{}
+        end
     }
 end)
