@@ -13,6 +13,10 @@ set shiftwidth=4
 set expandtab
 set termguicolors
 set encoding=UTF-8
+" persistent undo
+set undofile
+set undodir=~/AppData/local/nvim/undo//
+set undolevels=1000
 lua require('settings')
 hi CursorLineNr guifg=white
 " Gitgutter
