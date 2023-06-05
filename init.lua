@@ -30,6 +30,7 @@ vim.opt.hlsearch=false
 vim.opt.number=true
 vim.opt.cursorline=true
 vim.opt.wrap=false
+vim.opt.updatetime=1000
 -- vim.opt.cursorlineopt=number
 -- vim.opt.selection=exclusive
 vim.opt.tabstop=4
