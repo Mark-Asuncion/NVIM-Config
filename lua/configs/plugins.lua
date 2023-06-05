@@ -1,13 +1,21 @@
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+    use {
+        'wbthomason/packer.nvim',
+        opt = true,
+    }
     -- comment
-    use 'terrortylor/nvim-comment'
+    use {
+        'terrortylor/nvim-comment',
+        config = function()
+            require('configs.comment')
+        end,
+    }
     -- Themes
     use 'folke/tokyonight.nvim'
-    use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
+    use 'vim-airline/vim-airline'
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'williamboman/mason.nvim'
@@ -18,7 +26,13 @@ return require('packer').startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
-    use 'saadparwaiz1/cmp_luasnip'
+    use {
+        'saadparwaiz1/cmp_luasnip',
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_snipmate").lazy_load()
+        end,
+    }
     -- LuaSnip
     use{
         "L3MON4D3/LuaSnip",
@@ -55,7 +69,6 @@ return require('packer').startup(function(use)
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
         -- event = "BufEnter",
-        event = "VimEnter",
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -84,11 +97,19 @@ return require('packer').startup(function(use)
         opt = true,
     }
     -- indent guide
-    use 'lukas-reineke/indent-blankline.nvim'
+    use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require('configs.indent')
+        end,
+    }
     -- treesitter syntax highlighter
     use {
         'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
+        run = ':TSUpdate',
+        config = function()
+            require('configs.treesitter')
+        end,
     }
     use {
         'dstein64/vim-startuptime',
