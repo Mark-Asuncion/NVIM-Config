@@ -19,27 +19,26 @@ return require('packer').startup(function(use)
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim' 
+    use {
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+            require("mason-lspconfig").setup()
+        end,
+    }
     -- auto-completion
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
-    use {
-        'saadparwaiz1/cmp_luasnip',
-        config = function()
-            require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip.loaders.from_snipmate").lazy_load()
-        end,
-    }
+    use 'saadparwaiz1/cmp_luasnip'
     -- LuaSnip
     use{
         "L3MON4D3/LuaSnip",
         -- follow latest release.
         tag = "v1.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!:).
-        run = "make install_jsregexp"
+        run = "make install_jsregexp",
     }
     use 'rafamadriz/friendly-snippets'
     -- telescope
@@ -86,6 +85,7 @@ return require('packer').startup(function(use)
     -- colorizer
     use { 'norcalli/nvim-colorizer.lua',
         opt = true,
+        event = "BufEnter",
         ft = {"*.html","*.css","*.svg"},
         config = function()
             require('configs.colorizer')
