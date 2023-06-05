@@ -124,7 +124,6 @@ return require('packer').startup(function(use)
     }
     use {
         "utilyre/barbecue.nvim",
-        event = "CursorHold",
         tag = "*",
         requires = {
             "SmiteshP/nvim-navic",
