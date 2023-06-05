@@ -118,7 +118,6 @@ return require('packer').startup(function(use)
     -- autopairs
     use {
         "windwp/nvim-autopairs",
-        event = 'VimEnter',
         config = function()
             require("nvim-autopairs").setup{}
         end
