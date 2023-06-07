@@ -4,10 +4,6 @@
 vim.keymap.set('n','<leader>]',':NeoTreeShowToggle<CR>',{})
 vim.keymap.set('n','<leader>[',':NeoTreeFocus<CR>',{})
 
--- comment keymaps
-vim.keymap.set('n',';', ':CommentToggle<CR>', {})
-vim.keymap.set('v',';', ':CommentToggle<CR>', {})
-
 -- lsp keymaps
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

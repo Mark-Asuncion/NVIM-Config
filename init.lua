@@ -43,7 +43,8 @@ vim.opt.undofile=true
 vim.opt.undodir=vim.fn.expand("~/AppData/local/nvim/undo//")
 -- vim.opt.undodir=vim.fn.expand("~/.config/nvim/undo//")
 vim.opt.undolevels=1000
-vim.cmd[[hi CursorLineNr guifg=white]]
+-- vim.cmd[[hi CursorLineNr guifg=white]]
+vim.api.nvim_set_hl(0,"CursorLineNr",{ fg="White" })
 -- Gitgutter
 -- :highlight! link SignColumn LineNr
 vim.g.gitgutter_sign_allow_clobber = 1
