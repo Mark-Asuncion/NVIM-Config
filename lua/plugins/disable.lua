@@ -7,4 +7,5 @@ return {
   {"mfussenegger/nvim-dap", enabled=false},
   {"nvim-neotest/neotest", enabled=false},
   {"ahmedkhalf/project.nvim", enabled=false},
+  {"ggandor/flit.nvim", enabled=false},
 }
