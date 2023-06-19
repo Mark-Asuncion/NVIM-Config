@@ -20,8 +20,8 @@ vim.opt.termguicolors=true
 vim.opt.encoding="UTF-8"
 -- persistent undo
 vim.opt.undofile=true
-vim.opt.undodir=vim.fn.expand("~/AppData/local/nvim/undo//")
--- vim.opt.undodir=vim.fn.expand("~/.config/nvim/undo//")
+-- vim.opt.undodir=vim.fn.expand("~/AppData/local/nvim/undo//")
+vim.opt.undodir=vim.fn.expand("~/.config/nvim/undo//")
 vim.opt.undolevels=1000
 -- vim.cmd[[hi CursorLineNr guifg=white]]
 vim.api.nvim_set_hl(0,"CursorLineNr",{ fg="White" })
@@ -33,3 +33,6 @@ vim.opt.list = true
 vim.opt.listchars:append({
     space = "",
 })
+vim.cmd[[ set foldmethod=expr ]]
+vim.cmd[[ set foldexpr=nvim_treesitter#foldexpr() ]]
+vim.cmd[[ set nofoldenable ]]
