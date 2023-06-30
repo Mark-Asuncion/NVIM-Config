@@ -19,9 +19,6 @@ vim.keymap.set('n','<leader>w',':bw<CR>',{})
 vim.keymap.set('n','<C-j>',':cn<CR>',{})
 vim.keymap.set('n','<C-k>',':cp<CR>',{})
 
-vim.api.nvim_create_user_command("Grep","grep -S <args> %",{
-    nargs = 1,
-})
-vim.api.nvim_create_user_command("RGrep","grep -S <args>",{
+vim.api.nvim_create_user_command("Grep","grep -S <args>",{
     nargs = 1,
 })
