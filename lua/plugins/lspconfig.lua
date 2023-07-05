@@ -1,7 +1,9 @@
 return {
-    "neovim/nvim-lspconfig",
-    opts = {
-        autoformat = false,
+    {
+        "neovim/nvim-lspconfig",
+        opts = {
+            autoformat = false,
+        },
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -40,6 +42,7 @@ return {
                 "typescript-language-server",
                 "black",
                 "prettier",
+                "pyright",
             },
         },
     },
