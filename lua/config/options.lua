@@ -29,9 +29,9 @@ vim.api.nvim_set_hl(0,"CursorLineNr",{ fg="White" })
 -- vim.g.gitgutter_sign_allow_clobber = 1
 vim.opt.signcolumn="yes"
 
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.listchars:append({
-    space = "",
+    space = "",
 })
 vim.cmd[[ set foldmethod=expr ]]
 vim.cmd[[ set foldexpr=nvim_treesitter#foldexpr() ]]
