@@ -22,3 +22,11 @@ vim.keymap.set('n','<C-k>',':cp<CR>',{})
 vim.api.nvim_create_user_command("Grep","grep -S <args>",{
     nargs = 1,
 })
+vim.api.nvim_create_user_command("RustStandalone","lua RustStandaloneStart()",{})
+function RustStandaloneStart()
+    vim.cmd[[RustStartStandaloneServerForBuffer]]
+    local rt = require("rust-tools")
+    local bufnr = vim.fn.bufnr()
+    vim.keymap.set({"n","v"}, "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+    vim.keymap.set({"n","v"}, "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
+end
