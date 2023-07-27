@@ -8,4 +8,5 @@ return {
   {"nvim-neotest/neotest", enabled=false},
   {"ahmedkhalf/project.nvim", enabled=false},
   {"ggandor/flit.nvim", enabled=false},
+  {"folke/flash.nvim", enabled=false},
 }
