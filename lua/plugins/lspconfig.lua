@@ -1,7 +1,15 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        dependencies = { "simrat39/rust-tools.nvim", },
+        dependencies = {
+            "simrat39/rust-tools.nvim",
+            {
+                "hrsh7th/cmp-nvim-lsp",
+                cond = function()
+                    return require("lazyvim.util").has("nvim-cmp")
+                end,
+            }
+        },
         opts = {
             autoformat = false,
             setup = {
