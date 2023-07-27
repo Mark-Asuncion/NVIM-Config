@@ -1,27 +1,23 @@
 return {
+
+    { "hrsh7th/cmp-nvim-lsp" },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
             "simrat39/rust-tools.nvim",
-            {
-                "hrsh7th/cmp-nvim-lsp",
-                cond = function()
-                    return require("lazyvim.util").has("nvim-cmp")
-                end,
-            }
         },
         opts = {
             autoformat = false,
             setup = {
-                rust_analyzer = function(_,opts)
+                rust_analyzer = function(_, opts)
                     local rt = require("rust-tools")
                     local opt = opts
-                    opt.on_attach = function(_,bufnr)
+                    opt.on_attach = function(_, bufnr)
                         vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
                         -- Code action groups
                         vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
                     end
-                    rt.setup( { server = opt } )
+                    rt.setup({ server = opt })
                     return true
                 end,
             },
