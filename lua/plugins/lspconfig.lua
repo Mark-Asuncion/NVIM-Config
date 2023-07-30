@@ -62,7 +62,7 @@ return {
                 "black",
                 "prettier",
                 "pyright",
-                "rust_analyzer",
+                "rust-analyzer",
             },
         },
     },
