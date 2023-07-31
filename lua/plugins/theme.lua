@@ -1,3 +1,4 @@
+local theme_flavour = "mocha"
 return {
     -- {
     --     "folke/tokyonight.nvim",
@@ -22,8 +23,35 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
+        dependencies = {
+            {
+                "akinsho/bufferline.nvim",
+                opts = {
+                    highlights = require("catppuccin.groups.integrations.bufferline").get {
+                        styles = { "italic", "bold" },
+                        custom = {
+                            all = {
+                                fill = { bg = "none" },
+                            },
+                        },
+                    }
+                },
+            },
+        },
         opts = {
+            flavour = theme_flavour,
             transparent_background = true,
+            custom_highlights = function(colors)
+                return {
+                    NormalFloat = { bg = colors.crust },
+                }
+            end,
+            integrations = {
+                navic = {
+                    enabled = true,
+                    custom_bg = "NONE", -- "lualine" will set background to mantle
+                },
+            }
         },
     },
     {
