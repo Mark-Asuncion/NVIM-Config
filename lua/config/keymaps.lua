@@ -30,3 +30,11 @@ function RustStandaloneStart()
     vim.keymap.set({"n","v"}, "K", rt.hover_actions.hover_actions, { buffer = bufnr })
     vim.keymap.set({"n","v"}, "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
 end
+vim.api.nvim_create_user_command("Wrap",
+    function(_)
+        if vim.opt.wrap._value then
+            vim.opt.wrap = false
+            return
+        end
+        vim.opt.wrap = true
+    end,{})
