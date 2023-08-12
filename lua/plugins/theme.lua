@@ -55,6 +55,19 @@ return {
         },
     },
     {
+        "goolord/alpha-nvim",
+        opts = function(_,opts)
+            local catppuccin_cat = {
+                "  ⟋|､",
+                " (°､ ｡ 7",
+                " |､  ~ヽ",
+                " じしf_,)〳",
+            }
+            opts.section.header.val = catppuccin_cat
+            return opts
+        end,
+    },
+    {
         "LazyVim/LazyVim",
         opts = {
             colorscheme = "catppuccin",
