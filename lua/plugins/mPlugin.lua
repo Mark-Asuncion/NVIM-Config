@@ -49,13 +49,13 @@ return {
                     desc = "Harpoon Quick Menu",
                     silent = true,
                 })
-            vim.keymap.set('n','<leader>j',
+            vim.keymap.set('n','<A-j>',
                 ':lua require("harpoon.ui").nav_next()<cr>',
                 {
                     desc = "Harpoon Next",
                     silent = true,
                 })
-            vim.keymap.set('n','<leader>k',
+            vim.keymap.set('n','<A-k>',
                 ':lua require("harpoon.ui").nav_prev()<cr>',
                 {
                     desc = "Harpoon Prev",
