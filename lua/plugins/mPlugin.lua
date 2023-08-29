@@ -25,17 +25,12 @@ return {
     {
         "mbbill/undotree",
         event = { "InsertEnter" },
-        config = function()
-            vim.keymap.set('n', '<F5>', vim.cmd.UndotreeToggle)
-        end,
+        keys = {
+            { "<F5>", vim.cmd.UndotreeToggle, desc = "Undo Tree Toggle" }
+        },
     },
     {
         "ThePrimeagen/harpoon",
-        -- opts = {
-        --     tabline = true,
-        --     tabline_prefix = "   ",
-        --     tabline_suffix = "   ",
-        -- },
         config = function(_,opts)
             vim.keymap.set('n','<leader>ha',
                 ':lua require("harpoon.mark").add_file()<cr>',
