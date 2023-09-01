@@ -6,6 +6,7 @@ vim.g.mapleader=" "
 vim.keymap.set({'n','i', 'v'},'<A-a>', '<Esc>',{})
 -- copy and pasting
 vim.keymap.set('n','<leader>ay', '<cmd>%y+<CR>',{})
+vim.keymap.set('n','<leader>Y', '"+y$',{})
 vim.keymap.set('v','<leader>y', '"+y',{})
 vim.keymap.set({'n','v'},'<leader>p', '"+p',{})
 vim.keymap.set({'n','v'},'<leader>P', '"+P',{})
