@@ -27,10 +27,6 @@ vim.api.nvim_create_user_command("Grep","grep -S <args>",{
     nargs = 1,
 })
 vim.api.nvim_create_user_command("Wrap",
-    function(_)
-        if vim.opt.wrap._value then
-            vim.opt.wrap = false
-            return
-        end
-        vim.opt.wrap = true
+    function()
+        vim.opt.wrap = not vim.opt.wrap._value
     end,{})
