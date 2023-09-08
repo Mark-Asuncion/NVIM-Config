@@ -30,3 +30,4 @@ vim.api.nvim_create_user_command("Wrap",
     function()
         vim.opt.wrap = not vim.opt.wrap._value
     end,{})
+vim.api.nvim_create_user_command("Fmt","lua vim.lsp.buf.format()",{})
