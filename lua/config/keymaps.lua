@@ -31,3 +31,5 @@ vim.api.nvim_create_user_command("Wrap",
         vim.opt.wrap = not vim.opt.wrap._value
     end,{})
 vim.api.nvim_create_user_command("Fmt","lua vim.lsp.buf.format()",{})
+vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
+vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })
