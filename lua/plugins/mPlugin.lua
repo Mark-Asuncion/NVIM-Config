@@ -2,6 +2,9 @@ return {
     {
         "tpope/vim-fugitive",
         event = { "CursorHold", "InsertEnter" },
+        keys = {
+            { "<cmd>Gvdiffsplit<cr>" }
+        },
     },
     {
         "mbbill/undotree",
