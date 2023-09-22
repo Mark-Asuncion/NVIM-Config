@@ -13,8 +13,8 @@ vim.keymap.set('v','Y','"0Y',{})
 vim.keymap.set('v','p','"0p',{})
 vim.keymap.set('v','P','"0P',{})
 -- buffer nav
-vim.keymap.set('n','<A-l>', '<cmd>bn<CR>',{})
-vim.keymap.set('n','<A-h>', '<cmd>bp<CR>',{})
+vim.keymap.set('n','<A-j>', '10j',{})
+vim.keymap.set('n','<A-k>', '10k',{})
 vim.keymap.set('n','<leader>w','<cmd>bw<CR>',{})
 -- quickfix navi
 vim.keymap.set('n','<C-j>','<cmd>cn<CR>',{})

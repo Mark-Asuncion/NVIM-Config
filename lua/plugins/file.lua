@@ -3,6 +3,7 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         opts = {
             filesystem = {
+                group_empty_dirs = true,
                 hijack_netrw_behavior = "open_current",
                 filtered_items = {
                     visible = false, -- when true, they will just be displayed differently than normal items
