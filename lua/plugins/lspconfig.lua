@@ -59,7 +59,7 @@ return {
                 "clangd",
                 "html-lsp",
                 "css-lsp",
-                "eslint-lsp",
+                "typescript-language-server",
                 "black",
                 "prettier",
                 "pyright",
