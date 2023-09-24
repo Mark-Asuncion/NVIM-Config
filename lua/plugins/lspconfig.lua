@@ -1,14 +1,44 @@
 return {
-
-    { "hrsh7th/cmp-nvim-lsp" },
+    {
+        "hrsh7th/nvim-cmp",
+        opts = function(_,opts)
+            local cmp = require("cmp")
+            opts.window = {
+                completion = cmp.config.window.bordered({
+                    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+                }),
+                documentation = cmp.config.window.bordered({
+                    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+                }),
+            }
+            return opts
+        end,
+    },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
             "simrat39/rust-tools.nvim",
         },
-        opts = {
-            autoformat = false,
-            setup = {
+        opts = function(_,opts)
+            local border = {
+                { "╭", "FloatBorder" },
+                { "─", "FloatBorder" },
+                { "╮", "FloatBorder" },
+                { "│", "FloatBorder" },
+                { "╯", "FloatBorder" },
+                { "─", "FloatBorder" },
+                { "╰", "FloatBorder" },
+                { "│", "FloatBorder" },
+            }
+            local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+            function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+                opts = opts or {}
+                opts.border = opts.border or border
+                return orig_util_open_floating_preview(contents, syntax, opts, ...)
+            end
+            require('lspconfig.ui.windows').default_options.border = 'rounded'
+            opts.autoformat = false
+            opts.setup = {
                 rust_analyzer = function(_, opts)
                     local rt = require("rust-tools")
                     local opt = opts
@@ -20,8 +50,9 @@ return {
                     rt.setup({ server = opt })
                     return true
                 end,
-            },
-        },
+            }
+            return opts
+        end
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -64,6 +95,9 @@ return {
                 "prettier",
                 "pyright",
                 "rust-analyzer",
+            },
+            ui = {
+                border="rounded"
             },
         },
     },

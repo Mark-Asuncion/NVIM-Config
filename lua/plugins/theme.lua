@@ -41,11 +41,11 @@ return {
         opts = {
             flavour = theme_flavour,
             transparent_background = true,
-            custom_highlights = function(colors)
-                return {
-                    NormalFloat = { bg = colors.crust },
-                }
-            end,
+            -- custom_highlights = function(colors)
+            --     return {
+            --         NormalFloat = { bg = colors.crust },
+            --     }
+            -- end,
             integrations = {
                 navic = {
                     enabled = true,
