@@ -1,7 +1,21 @@
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
+        event = "BufEnter",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
+        keys = {
+            {
+                "<leader>e",
+                "<cmd>Neotree toggle float reveal position=float<cr>",
+                desc = "Toggle NeoTree",
+            },
+        },
         opts = {
+            close_if_last_window = true,
             filesystem = {
                 group_empty_dirs = true,
                 hijack_netrw_behavior = "open_current",
@@ -20,7 +34,7 @@ return {
                     -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
                     -- then these will never be used.
                     default = "*",
-                    highlight = "NeoTreeFileIcon"
+                    highlight = "NeoTreeFileIcon",
                 },
                 modified = {
                     symbol = "[+]",
@@ -29,96 +43,65 @@ return {
                 git_status = {
                     symbols = {
                         -- Change type
-                        added     = "✚",
-                        deleted   = "✖",
-                        modified  = "",
-                        renamed   = "r",
+                        added = "✚",
+                        deleted = "✖",
+                        modified = "",
+                        renamed = "r",
                         -- Status type
                         untracked = "",
-                        ignored   = "",
-                        unstaged  = "",
-                        staged    = "",
-                        conflict  = "",
+                        ignored = "",
+                        unstaged = "",
+                        staged = "",
+                        conflict = "",
                     },
                 },
             },
         },
+        config = function(_, opts)
+            require("neo-tree").setup(opts)
+        end,
     },
     {
         "nvim-telescope/telescope.nvim",
-        keys = {
-            {
-                "<leader>ff",
-                function()
-                    require("telescope.builtin")
-                    .find_files({
-                        no_ignore = false,
-                        no_ignore_parent = false
-                    })
-                end,
-                desc = "Find git files"
-            },
-            {
-                "<leader>fh",
-                function()
-                    require("telescope.builtin")
-                    .find_files({
-                        no_ignore = true,
-                        no_ignore_parent = true
-                    })
-                    end,
-                desc = "Find files"
-            },
-            {
-                "<leader>fH",
-                function()
-                    require("telescope.builtin")
-                    .find_files({
-                        hidden = true,
-                        no_ignore = true,
-                        no_ignore_parent = true
-                    })
-                    end,
-                desc = "Find files including hidden files"
-            },
-            {
-                "<leader>fs",
-                require("telescope.builtin")
-                    .treesitter,
-                desc = "Find Symbol"
-            },
-            {
-                "<leader>fb",
-                function()
-                    require("telescope.builtin")
-                    .buffers({
-                        cwd = vim.fn.getcwd(),
-                        ignore_current_buffer = true,
-                        sort_lastused = true,
-                        sort_mru = true
-                    })
-                end,
-                desc = "Find Buffers"
-            },
-            {
-                "<leader>fgs",
-                require("telescope.builtin")
-                    .git_status,
-                desc = "Find Git Status"
-            },
-            {
-                "<leader>fgb",
-                require("telescope.builtin")
-                    .git_branches,
-                desc = "Find Git Status"
-            }
-        }
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        opts = {
-            show_current_context = true,
-            show_current_context_start = true,
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
         },
-    }
+        config = function(_, opts)
+            require("telescope").setup(opts)
+            local builtin = require("telescope.builtin")
+            local set = vim.keymap.set
+            set("n", "<leader>ff", function()
+                builtin.find_files({
+                    no_ignore = false,
+                    no_ignore_parent = false,
+                })
+            end, {})
+            set("n", "<leader>fh", function()
+                builtin.find_files({
+                    no_ignore = true,
+                    no_ignore_parent = true,
+                })
+            end, {})
+            set("n", "<leader>fH", function()
+                builtin.find_files({
+                    hidden = true,
+                    no_ignore = true,
+                    no_ignore_parent = true,
+                })
+            end, {})
+            set("n", "<leader>fs", builtin.treesitter, {})
+            set("n", "<leader>fb", function()
+                builtin.buffers({
+                    cwd = vim.fn.getcwd(),
+                    ignore_current_buffer = true,
+                    sort_lastused = true,
+                    sort_mru = true,
+                })
+            end, {})
+            set("n", "<leader>fgs", builtin.git_status, {})
+            set("n", "<leader>fgb", builtin.git_branches, {})
+            set("n", "<leader>fgg", builtin.live_grep, {})
+        end,
+    },
+    { "lukas-reineke/indent-blankline.nvim" },
 }

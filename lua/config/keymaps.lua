@@ -1,5 +1,8 @@
 vim.g.mapleader=" "
 vim.keymap.set({'n','i', 'v'},'<A-a>', '<Esc>',{})
+-- movement
+vim.keymap.set('n','j', 'gj',{})
+vim.keymap.set('n','k', 'gk',{})
 -- selection
 vim.keymap.set('n','<leader>V', 'v$h',{})
 -- copy and pasting
@@ -12,14 +15,16 @@ vim.keymap.set('v','y','"0y',{})
 vim.keymap.set('v','Y','"0Y',{})
 vim.keymap.set('v','p','"0p',{})
 vim.keymap.set('v','P','"0P',{})
--- buffer nav
-vim.keymap.set('n','<A-j>', '10j',{})
-vim.keymap.set('n','<A-k>', '10k',{})
+-- buffer
+vim.keymap.set('n','<S-h>', '<cmd>bp<CR>',{})
+vim.keymap.set('n','<S-l>', '<cmd>bn<CR>',{})
 vim.keymap.set('n','<leader>w','<cmd>bw<CR>',{})
 -- quickfix navi
 vim.keymap.set('n','<C-j>','<cmd>cn<CR>',{})
 vim.keymap.set('n','<C-k>','<cmd>cp<CR>',{})
 -- scrolling
+vim.keymap.set('n','<A-j>', '10j',{})
+vim.keymap.set('n','<A-k>', '10k',{})
 vim.keymap.set('n','<C-d>','<C-d>zz',{})
 vim.keymap.set('n','<C-u>','<C-u>zz',{})
 

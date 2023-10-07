@@ -1,7 +1,7 @@
 vim.opt.clipboard=""
 vim.opt.guicursor="i:block"
 vim.opt.relativenumber=true
-vim.opt.scrolloff=10
+vim.opt.scrolloff=20
 vim.opt.incsearch=true
 vim.opt.hlsearch=false
 vim.opt.number=true
@@ -31,3 +31,4 @@ vim.cmd[[ set foldexpr=nvim_treesitter#foldexpr() ]]
 vim.cmd[[ set nofoldenable ]]
 vim.opt.colorcolumn="160"
 vim.opt.pumblend=0
+vim.opt.winbar=' '

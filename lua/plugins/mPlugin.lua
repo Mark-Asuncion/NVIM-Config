@@ -1,11 +1,11 @@
 return {
     {
-        "tpope/vim-fugitive",
-        event = { "CursorHold", "InsertEnter" },
-        cmd = { "Gvdiffsplit" },
+        "sindrets/diffview.nvim",
+        cmd = { "DiffviewOpen" },
     },
     {
         "mbbill/undotree",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         event = { "InsertEnter" },
         keys = {
             { "<F5>", vim.cmd.UndotreeToggle, desc = "Undo Tree Toggle" }
@@ -41,4 +41,40 @@ return {
             return opts
         end,
     },
+    {
+        "folke/which-key.nvim",
+        opts = function(_, opts)
+            return opts
+        end,
+    },
+    {
+        'echasnovski/mini.pairs',
+        event = "InsertEnter",
+        version = '*',
+        config = function(_, opts)
+            require("mini.pairs").setup(opts)
+        end,
+    },
+    {
+        "echasnovski/mini.comment",
+        event = "InsertEnter",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            -- "ts_context_commentstring.internal"
+        },
+        opts = {
+            options = {
+                custom_commentstring = function()
+                    return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+                end,
+            },
+        },
+        config = function(_, opts)
+            require("mini.comment").setup(opts)
+        end
+    },
+    {
+        'stevearc/dressing.nvim',
+        opts = {},
+    }
 }
