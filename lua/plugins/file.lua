@@ -48,14 +48,69 @@ return {
         "nvim-telescope/telescope.nvim",
         keys = {
             {
-                "<leader>fF",
-                "<cmd>lua require(\"telescope.builtin\").find_files({ hidden = true, no_ignore = true, no_ignore_parent = true })<cr>",
-                desc = "Find files ignore gitignore"
+                "<leader>ff",
+                function()
+                    require("telescope.builtin")
+                    .find_files({
+                        no_ignore = false,
+                        no_ignore_parent = false
+                    })
+                end,
+                desc = "Find git files"
             },
             {
                 "<leader>fh",
-                "<cmd>lua require(\"telescope.builtin\").find_files({ no_ignore = true, no_ignore_parent = true })<cr>",
-                desc = "Find files ignore gitignore"
+                function()
+                    require("telescope.builtin")
+                    .find_files({
+                        no_ignore = true,
+                        no_ignore_parent = true
+                    })
+                    end,
+                desc = "Find files"
+            },
+            {
+                "<leader>fH",
+                function()
+                    require("telescope.builtin")
+                    .find_files({
+                        hidden = true,
+                        no_ignore = true,
+                        no_ignore_parent = true
+                    })
+                    end,
+                desc = "Find files including hidden files"
+            },
+            {
+                "<leader>fs",
+                require("telescope.builtin")
+                    .treesitter,
+                desc = "Find Symbol"
+            },
+            {
+                "<leader>fb",
+                function()
+                    require("telescope.builtin")
+                    .buffers({
+                        cwd = vim.fn.getcwd(),
+                        ignore_current_buffer = true,
+                        sort_lastused = true,
+                        sort_mru = true
+                    })
+                end,
+                desc = "Find Buffers"
+            },
+            {
+                "<leader>fgs",
+                require("telescope.builtin")
+                    .git_status,
+                desc = "Find Git Status"
+            },
+            {
+                "<leader>fgb",
+                require("telescope.builtin")
+                    .git_branches,
+                desc = "Find Git Status"
             }
         }
     },

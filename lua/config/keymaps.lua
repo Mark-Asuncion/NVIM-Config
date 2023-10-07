@@ -19,6 +19,9 @@ vim.keymap.set('n','<leader>w','<cmd>bw<CR>',{})
 -- quickfix navi
 vim.keymap.set('n','<C-j>','<cmd>cn<CR>',{})
 vim.keymap.set('n','<C-k>','<cmd>cp<CR>',{})
+-- scrolling
+vim.keymap.set('n','<C-d>','<C-d>zz',{})
+vim.keymap.set('n','<C-u>','<C-u>zz',{})
 
 vim.api.nvim_create_user_command("Grep","grep -S <args>",{
     nargs = 1,
