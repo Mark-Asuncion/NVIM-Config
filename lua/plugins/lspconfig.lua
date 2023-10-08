@@ -198,7 +198,9 @@ return {
     {
         "nvimtools/none-ls.nvim",
         event = "VeryLazy",
-        dependencies = { "mason.nvim" },
+        dependencies = {
+            "nvim-lua/plenary.nvim"
+        },
         opts = function()
             local null_ls = require("null-ls")
             return {
@@ -328,13 +330,16 @@ return {
                     vim.keymap.set('n', '<space>wl', function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end, aug_opts)
-                    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, aug_opts)
+                    vim.keymap.set('n', '<space>cD', vim.lsp.buf.type_definition, aug_opts)
                     vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, aug_opts)
                     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, aug_opts)
                     vim.keymap.set('n', 'gr', vim.lsp.buf.references, aug_opts)
-                    vim.keymap.set('n', '<space>f', function()
-                        vim.lsp.buf.format { async = true }
-                    end, aug_opts)
+                    vim.api.nvim_create_user_command("References",
+                        vim.lsp.buf.references,
+                        {})
+                    vim.api.nvim_create_user_command("Format",
+                        function() vim.lsp.buf.format({ async = true }) end,
+                        {})
                 end
             })
 

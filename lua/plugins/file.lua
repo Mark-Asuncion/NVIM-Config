@@ -57,61 +57,104 @@ return {
                 },
             },
         },
-        config = function(_, opts)
-            require("neo-tree").setup(opts)
-        end,
+        config = function()
+            require('mini.files').setup()
+        end
+    },
+    {
+        'echasnovski/mini.surround',
+        version = '*',
+        config = function()
+            require("mini.surround").setup()
+        end
+    },
+    {
+        'echasnovski/mini.ai',
+        version = '*',
+        config = function()
+            require("mini.ai").setup()
+        end
     },
     {
         "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        keys = {
+            {
+                "<leader>ff",
+                function()
+                    require("telescope.builtin").find_files({
+                        no_ignore = false,
+                        no_ignore_parent = false,
+                    })
+                end,
+                desc = "Telescope Git Files"
+            },
+            {
+                "<leader>fh",
+                function()
+                    require("telescope.builtin").find_files({
+                        no_ignore = true,
+                        no_ignore_parent = true,
+                    })
+                end,
+                desc = "Telescope Files"
+            },
+            {
+                "<leader>fH",
+                function()
+                    require("telescope.builtin").find_files({
+                        hidden = true,
+                        no_ignore = true,
+                        no_ignore_parent = true,
+                    })
+                end,
+                desc = "Telescope Files (Includes hidden)"
+            },
+            {
+                "<leader>fs",
+                function()
+                    require("telescope.builtin").treesitter()
+                end,
+                desc = "Telescope Symbols"
+            },
+            {
+                "<leader>fb",
+                function()
+                    require("telescope.builtin").buffers({
+                        cwd = vim.fn.getcwd(),
+                        ignore_current_buffer = true,
+                        sort_lastused = true,
+                        sort_mru = true,
+                    })
+                end,
+                desc = "Telescope Buffers"
+            },
+            {
+                "<leader>fgs",
+                function()
+                    require("telescope.builtin").git_status()
+                end,
+                desc = "Telescope Git Status"
+            },
+            {
+                "<leader>fgb",
+                function()
+                    require("telescope.builtin").git_branches()
+                end,
+                desc = "Telescope Git Branches"
+            },
+            {
+                "<leader>fgg",
+                function()
+                    require("telescope.builtin").live_grep()
+                end,
+                desc = "Telescope Live Grep"
+            }
+        },
         config = function(_, opts)
             require("telescope").setup(opts)
-            local builtin = require("telescope.builtin")
-            local set = vim.keymap.set
-            set("n", "<leader>ff", function()
-                builtin.find_files({
-                    no_ignore = false,
-                    no_ignore_parent = false,
-                })
-            end,{
-                    desc = "Telescope Git Files"
-                })
-            set("n", "<leader>fh", function()
-                builtin.find_files({
-                    no_ignore = true,
-                    no_ignore_parent = true,
-                })
-            end,{
-                    desc = "Telescope Files"
-                })
-            set("n", "<leader>fH", function()
-                builtin.find_files({
-                    hidden = true,
-                    no_ignore = true,
-                    no_ignore_parent = true,
-                })
-            end,{
-                    desc = "Telescope Files (Includes hidden)"
-                })
-            set("n", "<leader>fs", builtin.treesitter, {})
-            set("n", "<leader>fb", function()
-                builtin.buffers({
-                    cwd = vim.fn.getcwd(),
-                    ignore_current_buffer = true,
-                    sort_lastused = true,
-                    sort_mru = true,
-                })
-            end,{
-                    desc = "Telescope Buffers"
-                })
-            set("n", "<leader>fgs", builtin.git_status, {
-                desc = "Telescope Git Status"
-            })
-            set("n", "<leader>fgb", builtin.git_branches, {
-                desc = "Telescope Git Branches"
-            })
-            set("n", "<leader>fgg", builtin.live_grep, {
-                desc = "Telescope Live Grep"
-            })
         end,
     },
     { "lukas-reineke/indent-blankline.nvim" },

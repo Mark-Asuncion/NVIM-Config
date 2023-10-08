@@ -43,10 +43,11 @@ return {
     },
     {
         "folke/which-key.nvim",
-        init = function()
+        config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
-        end,
+            require("which-key").setup {}
+        end
     },
     {
         'echasnovski/mini.pairs',

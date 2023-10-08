@@ -28,7 +28,10 @@ vim.keymap.set('n','<A-k>', '10k',{})
 vim.keymap.set('n','<C-d>','<C-d>zz',{})
 vim.keymap.set('n','<C-u>','<C-u>zz',{})
 
-vim.api.nvim_create_user_command("Grep","grep -S <args>",{
+if vim.fn.executable("rg") then
+    vim.opt.grepprg="rg --vimgrep -S"
+end
+vim.api.nvim_create_user_command("Grep","grep <args>",{
     nargs = 1,
 })
 vim.api.nvim_create_user_command("Wrap",
