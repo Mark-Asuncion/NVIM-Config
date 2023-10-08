@@ -57,9 +57,9 @@ return {
                 },
             },
         },
-        config = function()
-            require('mini.files').setup()
-        end
+        config = function(_, opts)
+            require("neo-tree").setup(opts)
+        end,
     },
     {
         'echasnovski/mini.surround',
