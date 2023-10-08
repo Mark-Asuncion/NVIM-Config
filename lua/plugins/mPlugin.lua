@@ -43,8 +43,9 @@ return {
     },
     {
         "folke/which-key.nvim",
-        opts = function(_, opts)
-            return opts
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
         end,
     },
     {
@@ -60,7 +61,7 @@ return {
         event = "InsertEnter",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            -- "ts_context_commentstring.internal"
+            "JoosepAlviste/nvim-ts-context-commentstring"
         },
         opts = {
             options = {

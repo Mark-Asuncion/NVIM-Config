@@ -77,7 +77,7 @@ return {
                 }),
                 experimental = {
                     ghost_text = {
-                        hl_group = "CmpGhostText",
+                        hl_group = "Comment",
                     },
                 },
                 formatting = {
@@ -132,6 +132,7 @@ return {
         build = ":TSUpdate",
         event = "VeryLazy",
         dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
                 config = function()
@@ -169,7 +170,14 @@ return {
                 additional_vim_regex_highlighting = true,
             },
             indent = { enable = true },
-            context_commentstring = { enable = true }
+            context_commentstring = { enable = true },
+            textobjects = {
+                select = {
+                    enable = true,
+                    lookahead = true,
+                    include_surrounding_whitespace = false
+                }
+            }
         },
         config = function(_,opts)
              require("nvim-treesitter.configs").setup(opts)
