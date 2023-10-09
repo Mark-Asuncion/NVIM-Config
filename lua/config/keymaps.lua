@@ -11,8 +11,6 @@ vim.keymap.set('n','<leader>Y', '"+y$',{})
 vim.keymap.set('v','<leader>y', '"+y',{})
 vim.keymap.set({'n','v'},'<leader>p', '"+p',{})
 vim.keymap.set({'n','v'},'<leader>P', '"+P',{})
-vim.keymap.set('v','y','"0y',{})
-vim.keymap.set('v','Y','"0Y',{})
 vim.keymap.set('v','p','"0p',{})
 vim.keymap.set('v','P','"0P',{})
 -- buffer
@@ -37,6 +35,10 @@ vim.api.nvim_create_user_command("Grep","grep <args>",{
 vim.api.nvim_create_user_command("Wrap",
     function()
         vim.opt.wrap = not vim.opt.wrap._value
+    end,{})
+vim.api.nvim_create_user_command("Trim",
+    function()
+        vim.cmd[[%s/\s\+$]]
     end,{})
 vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
 vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })

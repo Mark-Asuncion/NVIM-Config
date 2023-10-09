@@ -1,4 +1,3 @@
-vim.opt.clipboard=""
 vim.opt.guicursor="i:block"
 vim.opt.relativenumber=true
 vim.opt.scrolloff=20
