@@ -26,6 +26,16 @@ vim.opt.listchars:append({
     space = "·",
     extends = "",
 })
+vim.opt.fillchars:append({
+    fold = "─",
+    diff = "╱"
+})
+vim.api.nvim_exec2([[
+function! FoldText()
+    return ' ( ' . (v:foldend - v:foldstart) . ' L) ' . getline(v:foldstart) . ' ... ' . getline(v:foldend)
+endfunction
+]], { output = false })
+vim.opt.foldtext="FoldText()"
 vim.opt.colorcolumn="160"
 vim.opt.pumblend=0
 vim.opt.winbar=' '
