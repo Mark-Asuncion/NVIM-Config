@@ -22,28 +22,25 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        opts = function()
-            local theme_flavour = "mocha"
-            return {
-                flavour = theme_flavour,
-                transparent_background = true,
-                -- custom_highlights = function(colors)
-                --     return {
-                --         NormalFloat = { bg = colors.none },
-                --     }
-                -- end,
-                integrations = {
-                    navic = {
-                        enabled = true,
-                        custom_bg = "NONE",
-                    },
-                }
+        opts = {
+            flavour = "mocha",
+            transparent_background = true,
+            -- custom_highlights = function(colors)
+            --     return {
+            --         NormalFloat = { bg = colors.none },
+            --     }
+            -- end,
+            integrations = {
+                navic = {
+                    enabled = true,
+                    custom_bg = "NONE",
+                },
             }
-        end,
+        },
         config = function(_,opts)
+            require("catppuccin").setup(opts)
             vim.cmd[[colorscheme catppuccin]]
             vim.cmd[[highlight NormalFloat guibg=NONE]]
-            require("catppuccin").setup(opts)
         end
     },
     {
@@ -58,7 +55,7 @@ return {
             }
             dashboard.section.header.val = catppuccin_cat
             dashboard.section.buttons.val = {
-                -- dashboard.button("f", " " .. " Find file", "<cmd> Telescope find_files <cr>"),
+                dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files<cr>"),
                 dashboard.button("n", " " .. " New file", "<cmd> ene <BAR> startinsert <cr>"),
                 dashboard.button("r", " " .. " Recent files", "<cmd> Telescope oldfiles <cr>"),
                 dashboard.button("g", " " .. " Find text", "<cmd> Telescope live_grep <cr>"),
@@ -92,6 +89,7 @@ return {
     },
     {
         "SmiteshP/nvim-navic",
+        dependencies = { "neovim/nvim-lspconfig" },
         event = "VeryLazy",
         opts = {
             icons = {
@@ -128,14 +126,15 @@ return {
             },
             highlight = true,
             separator = " > ",
-            depth_limit = 0,
+            depth_limit = 10,
             depth_limit_indicator = "..",
             safe_output = true,
-            lazy_update_context = false,
+            lazy_update_context = true,
             click = true
         },
         config = function(_,opts)
             require("nvim-navic").setup(opts)
+            vim.g.navic_silence = true
         end
     },
     {
@@ -143,6 +142,7 @@ return {
         event = "VeryLazy",
         dependencies = {
             "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons"
         },
         opts = {
             options = {
@@ -172,10 +172,10 @@ return {
                         newfile_status = true,
                         path = 1,
                         symbols = {
-                            modified = '[+]',      -- Text to show when the file is modified.
-                            readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
-                            unnamed = '[No Name]', -- Text to show for unnamed buffers.
-                            newfile = '[New]',     -- Text to show for newly created file before first write
+                            modified = ' ●',      -- Text to show when the file is modified.
+                            readonly = ' ',      -- Text to show when the file is non-modifiable or readonly.
+                            unnamed = '', -- Text to show for unnamed buffers.
+                            newfile = ' ',     -- Text to show for newly created file before first write
                         }
                     }
                 },
@@ -196,9 +196,8 @@ return {
                 lualine_c = {
                     {
                         "navic",
-                        color_correction = "dynamic",
-                        navic_opts = nil,
-                        condition = true
+                        color_correction = "static",
+                        navic_opts = nil
                     }
                 }
             },
@@ -207,13 +206,6 @@ return {
         },
         config = function(_,opts)
             require("lualine").setup(opts)
-        end
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("gitsigns").setup()
         end
     }
 }

@@ -1,7 +1,7 @@
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
-        event = "BufEnter",
+        event = { "BufWinEnter" },
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
@@ -80,6 +80,7 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
+        cmd = { "Telescope" },
         keys = {
             {
                 "<leader>ff",
@@ -89,20 +90,20 @@ return {
                         no_ignore_parent = false,
                     })
                 end,
+                desc = "Telescope Files"
+            },
+            {
+                "<leader>fF",
+                function()
+                    require("telescope.builtin").git_files({
+                        no_ignore = false,
+                        no_ignore_parent = false,
+                    })
+                end,
                 desc = "Telescope Git Files"
             },
             {
                 "<leader>fh",
-                function()
-                    require("telescope.builtin").find_files({
-                        no_ignore = true,
-                        no_ignore_parent = true,
-                    })
-                end,
-                desc = "Telescope Files"
-            },
-            {
-                "<leader>fH",
                 function()
                     require("telescope.builtin").find_files({
                         hidden = true,
@@ -132,6 +133,13 @@ return {
                 desc = "Telescope Buffers"
             },
             {
+                "<leader>fbg",
+                function()
+                    require("telescope.builtin").current_buffer_fuzzy_find()
+                end,
+                desc = "Telescope Live Grep on Current Buffer"
+            },
+            {
                 "<leader>fgs",
                 function()
                     require("telescope.builtin").git_status()
@@ -146,7 +154,7 @@ return {
                 desc = "Telescope Git Branches"
             },
             {
-                "<leader>fgg",
+                "<leader>fG",
                 function()
                     require("telescope.builtin").live_grep()
                 end,
@@ -157,5 +165,23 @@ return {
             require("telescope").setup(opts)
         end,
     },
-    { "lukas-reineke/indent-blankline.nvim" },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = "VeryLazy",
+        main = "ibl",
+        opts = {
+            indent = {
+                tab_char = '',
+                smart_indent_cap = true,
+                priority = 2,
+            }
+        }
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("gitsigns").setup()
+        end
+    }
 }
