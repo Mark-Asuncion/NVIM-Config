@@ -180,8 +180,22 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
+        keys = {
+            {
+                "]h",
+                "<cmd>Gitsigns next_hunk<cr>",
+                desc = "Git next hunk"
+            },
+            {
+                "[h",
+                "<cmd>Gitsigns prev_hunk<cr>",
+                desc = "Git prev hunk"
+            }
+        },
         config = function()
             require("gitsigns").setup()
+            vim.api.nvim_create_user_command("Gitblame", "Gitsigns blame_line",{ desc = "Git Blame" })
+            vim.api.nvim_create_user_command("GitTogblame", "Gitsigns toggle_current_line_blame",{ desc = "Git Toggle Blame" })
         end
     }
 }

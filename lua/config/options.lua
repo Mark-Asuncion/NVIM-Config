@@ -18,8 +18,8 @@ vim.opt.encoding="UTF-8"
 vim.opt.undofile=true
 vim.opt.undodir=vim.fn.expand("~/.undo//")
 vim.opt.undolevels=1000
-vim.api.nvim_set_hl(0,"CursorLineNr",{ fg="White" })
-vim.opt.signcolumn="yes"
+vim.opt.foldcolumn="1"
+vim.opt.signcolumn="auto:1-4"
 
 vim.opt.list = true
 vim.opt.listchars:append({
@@ -28,6 +28,8 @@ vim.opt.listchars:append({
 })
 vim.opt.fillchars:append({
     fold = "─",
+    foldclose = "",
+    foldopen = "",
     diff = "╱"
 })
 vim.api.nvim_exec2([[
