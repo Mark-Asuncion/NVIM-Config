@@ -25,6 +25,11 @@ vim.keymap.set('n','<A-j>', '10j',{})
 vim.keymap.set('n','<A-k>', '10k',{})
 vim.keymap.set('n','<C-d>','<C-d>zz',{})
 vim.keymap.set('n','<C-u>','<C-u>zz',{})
+-- resizing windows
+vim.keymap.set('n','<A-Left>','<cmd>vertical resize -5<cr>',{})
+vim.keymap.set('n','<A-Right>','<cmd>vertical resize +5<cr>',{})
+vim.keymap.set('n','<A-Up>','<cmd>resize +5<cr>',{})
+vim.keymap.set('n','<A-Down>','<cmd>resize -5<cr>',{})
 
 if vim.fn.executable("rg") then
     vim.opt.grepprg="rg --vimgrep -S"
