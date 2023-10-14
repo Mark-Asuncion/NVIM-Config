@@ -24,10 +24,8 @@ vim.opt.signcolumn="yes"
 vim.opt.list = true
 vim.opt.listchars:append({
     space = "·",
+    extends = "",
 })
-vim.cmd[[ set foldmethod=expr ]]
-vim.cmd[[ set foldexpr=nvim_treesitter#foldexpr() ]]
-vim.cmd[[ set nofoldenable ]]
 vim.opt.colorcolumn="160"
 vim.opt.pumblend=0
 vim.opt.winbar=' '
