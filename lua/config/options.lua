@@ -19,7 +19,7 @@ vim.opt.undofile=true
 vim.opt.undodir=vim.fn.expand("~/.undo//")
 vim.opt.undolevels=1000
 vim.opt.foldcolumn="1"
-vim.opt.signcolumn="auto:1-4"
+vim.opt.signcolumn="yes"
 
 vim.opt.list = true
 vim.opt.listchars:append({
@@ -34,7 +34,7 @@ vim.opt.fillchars:append({
 })
 vim.api.nvim_exec2([[
 function! FoldText()
-    return ' ( ' . (v:foldend - v:foldstart) . ' L) ' . getline(v:foldstart) . ' ... ' . getline(v:foldend)
+    return ' ( ' . (v:foldend - v:foldstart) . ' L) ' . trim(getline(v:foldstart)) . ' ... ' . trim(getline(v:foldend))
 endfunction
 ]], { output = false })
 vim.opt.foldtext="FoldText()"
