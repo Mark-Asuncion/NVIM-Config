@@ -12,10 +12,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
             timeout=150 }
     end,
 })
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
     callback = function(_)
-        if vim.bo.buftype == "help" then
-            vim.keymap.set('n','q','<cmd>bw<cr>',{ noremap=true })
+        if vim.bo.buftype == "help" or vim.bo.buftype == "quickfix" then
+            vim.keymap.set('n','q','<cmd>bw<cr>',{ noremap=true, buffer=true })
         end
     end,
 })
