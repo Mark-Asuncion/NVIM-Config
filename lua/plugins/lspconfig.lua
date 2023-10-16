@@ -342,21 +342,20 @@ return {
                     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, aug_opts)
                     vim.keymap.set('n', '<leader>ck', vim.lsp.buf.signature_help, aug_opts)
                     vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, aug_opts)
-                    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, aug_opts)
-                    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, aug_opts)
-                    vim.keymap.set('n', '<space>wl', function()
-                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                    end, aug_opts)
                     vim.keymap.set('n', '<space>cD', vim.lsp.buf.type_definition, aug_opts)
                     vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, aug_opts)
                     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, aug_opts)
                     vim.keymap.set('n', 'gr', vim.lsp.buf.references, aug_opts)
-                    vim.api.nvim_create_user_command("References",
-                        vim.lsp.buf.references,
-                        {})
-                    vim.api.nvim_create_user_command("Format",
-                        function() vim.lsp.buf.format({ async = true }) end,
-                        {})
+
+                    vim.api.nvim_create_user_command("WorkspaceAdd", vim.lsp.buf.add_workspace_folder, {})
+                    vim.api.nvim_create_user_command("WorkspaceRm", vim.lsp.buf.remove_workspace_folder, {})
+                    vim.api.nvim_create_user_command("WorkspaceList", function()
+                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                    end, {})
+                    vim.api.nvim_create_user_command("References", vim.lsp.buf.references, {})
+                    vim.api.nvim_create_user_command("Format", function()
+                        vim.lsp.buf.format({ async = true })
+                    end, {})
                 end
             })
 

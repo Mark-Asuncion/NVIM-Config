@@ -17,6 +17,7 @@ vim.keymap.set('v','P','"0P',{})
 vim.keymap.set('n','<S-h>', '<cmd>bp<CR>',{})
 vim.keymap.set('n','<S-l>', '<cmd>bn<CR>',{})
 vim.keymap.set('n','<leader>w','<cmd>bw<CR>',{})
+vim.keymap.set('n','<leader>W','<cmd>bw!<CR>',{})
 -- quickfix navi
 vim.keymap.set('n','<C-j>','<cmd>cn<CR>',{})
 vim.keymap.set('n','<C-k>','<cmd>cp<CR>',{})
