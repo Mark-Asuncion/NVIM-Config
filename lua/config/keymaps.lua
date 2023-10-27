@@ -38,13 +38,16 @@ end
 vim.api.nvim_create_user_command("Grep","grep <args>",{
     nargs = 1,
 })
-vim.api.nvim_create_user_command("Wrap",
-    function()
-        vim.opt.wrap = not vim.opt.wrap._value
+vim.api.nvim_create_user_command("Wrap", function()
+        vim.o.wrap = not vim.o.wrap
     end,{})
 vim.api.nvim_create_user_command("Trim",
-    function()
-        vim.cmd[[%s/\s\+$]]
-    end,{})
+    function(arg)
+        if arg.range == 0 then
+            vim.cmd[[%s/\s\+$]]
+        else
+            vim.cmd[['<,'>s/\s\+$]]
+        end
+    end,{ range = true })
 vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
 vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })

@@ -125,7 +125,7 @@ return {
                 preference = nil,
             },
             highlight = true,
-            separator = " > ",
+            separator = "  ",
             depth_limit = 10,
             depth_limit_indicator = "..",
             safe_output = true,

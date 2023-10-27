@@ -248,7 +248,7 @@ return {
                 virtual_text = {
                     spacing = 4,
                     source = "if_many",
-                    prefix = "●",
+                    prefix = "󰝤",
                 },
                 severity_sort = true,
             },
@@ -353,9 +353,22 @@ return {
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end, {})
                     vim.api.nvim_create_user_command("References", vim.lsp.buf.references, {})
-                    vim.api.nvim_create_user_command("Format", function()
-                        vim.lsp.buf.format({ async = true })
-                    end, {})
+                    vim.api.nvim_create_user_command("Format", function(arg)
+                        local function selRange()
+                            if arg.range == 0 then
+                                return nil
+                            end
+                            return {
+                                ["start"] = { arg.line1, 0 },
+                                ["end"] = { arg.line2, 0 }
+                            }
+                        end
+                        vim.lsp.buf.format({
+                            buffer = 0,
+                            async = true,
+                            range = selRange()
+                        })
+                    end, { range = true })
                 end
             })
 
