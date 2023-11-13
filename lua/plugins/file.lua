@@ -133,7 +133,7 @@ return {
                 desc = "Telescope Buffers"
             },
             {
-                "<leader>fbg",
+                "<leader>fB",
                 function()
                     require("telescope.builtin").current_buffer_fuzzy_find()
                 end,
