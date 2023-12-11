@@ -1,8 +1,8 @@
 vim.g.mapleader=" "
 vim.keymap.set({'n','i', 'v'},'<A-a>', '<Esc>',{})
 -- movement
-vim.keymap.set('n','j', 'gj',{})
-vim.keymap.set('n','k', 'gk',{})
+vim.keymap.set({'n','v'},'j', 'gj',{})
+vim.keymap.set({'n','v'},'k', 'gk',{})
 -- selection
 vim.keymap.set('n','<leader>V', 'v$h',{})
 -- copy and pasting
