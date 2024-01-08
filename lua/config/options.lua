@@ -45,3 +45,11 @@ vim.o.smartcase=true
 vim.o.smartindent=true
 vim.o.splitbelow=true
 vim.o.splitright=true
+
+vim.g.setTab = function(w)
+    if w == 0 then
+        return vim.g.setTab(4)
+    end
+    vim.o.tabstop=w
+    vim.o.shiftwidth=w
+end

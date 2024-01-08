@@ -31,8 +31,9 @@ return {
 
             -- Custom Highlights --
             colors = {}, -- Override default colors
-            highlights = {
-                FloatBorder = {bg="$bg0"},
+            highlights =  {
+                FloatBorder = { bg = "$bg0" },
+                NormalFloat = { bg = "$bg0" },
             }, -- Override highlight groups
 
             -- Plugins Config --
