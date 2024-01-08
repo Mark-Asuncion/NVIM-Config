@@ -33,7 +33,7 @@ vim.keymap.set('n','<A-Up>','<cmd>resize +5<cr>',{})
 vim.keymap.set('n','<A-Down>','<cmd>resize -5<cr>',{})
 
 if vim.fn.executable("rg") then
-    vim.opt.grepprg="rg --vimgrep -S"
+    vim.o.grepprg="rg --vimgrep -S"
 end
 vim.api.nvim_create_user_command("Grep","grep <args>",{
     nargs = 1,

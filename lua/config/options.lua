@@ -1,27 +1,27 @@
-vim.opt.guicursor="i:block"
-vim.opt.relativenumber=true
-vim.opt.scrolloff=20
-vim.opt.incsearch=true
-vim.opt.hlsearch=false
-vim.opt.number=true
-vim.opt.cursorline=true
-vim.opt.wrap=false
-vim.opt.updatetime=1000
--- vim.opt.cursorlineopt=number
--- vim.opt.selection=exclusive
-vim.opt.tabstop=4
-vim.opt.shiftwidth=4
-vim.opt.expandtab=true
-vim.opt.termguicolors=true
-vim.opt.encoding="UTF-8"
+vim.o.guicursor="i:block"
+vim.o.relativenumber=true
+vim.o.scrolloff=20
+vim.o.incsearch=true
+vim.o.hlsearch=false
+vim.o.number=true
+vim.o.cursorline=true
+vim.o.wrap=false
+vim.o.updatetime=1000
+-- vim.o.cursorlineopt=number
+-- vim.o.selection=exclusive
+vim.o.tabstop=4
+vim.o.shiftwidth=4
+vim.o.expandtab=true
+vim.o.termguicolors=true
+vim.o.encoding="UTF-8"
 -- persistent undo
-vim.opt.undofile=true
-vim.opt.undodir=vim.fn.expand("~/.undo//")
-vim.opt.undolevels=1000
-vim.opt.foldcolumn="1"
-vim.opt.signcolumn="yes"
+vim.o.undofile=true
+vim.o.undodir=vim.fn.expand("~/.undo//")
+vim.o.undolevels=1000
+vim.o.foldcolumn="1"
+vim.o.signcolumn="yes"
 
-vim.opt.list = true
+vim.o.list = true
 vim.opt.listchars:append({
     space = "·",
     extends = "",
@@ -37,12 +37,12 @@ function! FoldText()
     return ' ( ' . (v:foldend - v:foldstart) . ' L) ' . trim(getline(v:foldstart)) . ' ... ' . trim(getline(v:foldend))
 endfunction
 ]], { output = false })
-vim.opt.foldtext="FoldText()"
-vim.opt.colorcolumn="160"
-vim.opt.pumblend=0
-vim.opt.winbar=' '
-vim.opt.ignorecase=true
-vim.opt.smartcase=true
-vim.opt.smartindent=true
-vim.opt.splitbelow=true
-vim.opt.splitright=true
+vim.o.foldtext="FoldText()"
+vim.o.colorcolumn="160"
+vim.o.pumblend=0
+vim.o.winbar=' '
+vim.o.ignorecase=true
+vim.o.smartcase=true
+vim.o.smartindent=true
+vim.o.splitbelow=true
+vim.o.splitright=true
