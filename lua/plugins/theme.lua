@@ -1,4 +1,52 @@
 return {
+    {
+        "navarasu/onedark.nvim",
+        opts = {
+            -- Main options --
+            style = 'warm', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+            transparent = false,  -- Show/hide background
+            term_colors = true, -- Change terminal color as per the selected theme style
+            ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+            cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+
+            -- toggle theme style ---
+            toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+            toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
+
+            -- Change code style ---
+            -- Options are italic, bold, underline, none
+            -- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
+            code_style = {
+                comments = 'italic',
+                keywords = 'none',
+                functions = 'none',
+                strings = 'none',
+                variables = 'none'
+            },
+
+            -- Lualine options --
+            lualine = {
+                transparent = false, -- lualine center bar transparency
+            },
+
+            -- Custom Highlights --
+            colors = {}, -- Override default colors
+            highlights = {
+                FloatBorder = {bg="$bg0"},
+            }, -- Override highlight groups
+
+            -- Plugins Config --
+            diagnostics = {
+                darker = true, -- darker colors for diagnostic
+                undercurl = true,   -- use undercurl instead of underline for diagnostics
+                background = true,    -- use background color for virtual text
+            },
+        },
+        config = function(_,opts)
+            require("onedark").setup(opts)
+            vim.cmd[[colorscheme onedark]]
+        end
+    },
     -- {
     --     "folke/tokyonight.nvim",
     --     opts = {
@@ -13,36 +61,36 @@ return {
     --             functions = {},
     --             variables = {},
     --             -- Background styles. Can be "dark", "transparent" or "normal"
-    --             sidebars = "transparent", -- style for sidebars, see below
-    --             floats = "transparent", -- style for floating windows
+    --             sidebars = "dark", -- style for sidebars, see below
+    --             floats = "dark", -- style for floating windows
     --         },
     --         dim_inactive = false, -- dims inactive windows
     --     },
     -- },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        opts = {
-            flavour = "mocha",
-            transparent_background = true,
-            -- custom_highlights = function(colors)
-            --     return {
-            --         NormalFloat = { bg = colors.none },
-            --     }
-            -- end,
-            integrations = {
-                navic = {
-                    enabled = true,
-                    custom_bg = "NONE",
-                },
-            }
-        },
-        config = function(_,opts)
-            require("catppuccin").setup(opts)
-            vim.cmd[[colorscheme catppuccin]]
-            vim.cmd[[highlight NormalFloat guibg=NONE]]
-        end
-    },
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     opts = {
+    --         flavour = "mocha",
+    --         transparent_background = true,
+    --         -- custom_highlights = function(colors)
+    --         --     return {
+    --         --         NormalFloat = { bg = colors.none },
+    --         --     }
+    --         -- end,
+    --         integrations = {
+    --             navic = {
+    --                 enabled = true,
+    --                 custom_bg = "NONE",
+    --             },
+    --         }
+    --     },
+    --     config = function(_,opts)
+    --         require("catppuccin").setup(opts)
+    --         vim.cmd[[colorscheme catppuccin]]
+    --         vim.cmd[[highlight NormalFloat guibg=NONE]]
+    --     end
+    -- },
     {
         "goolord/alpha-nvim",
         opts = function(_,_)
@@ -196,7 +244,7 @@ return {
                 lualine_c = {
                     {
                         "navic",
-                        color_correction = "static",
+                        color_correction = "nil",
                         navic_opts = nil
                     }
                 }

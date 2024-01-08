@@ -18,7 +18,6 @@ vim.o.encoding="UTF-8"
 vim.o.undofile=true
 vim.o.undodir=vim.fn.expand("~/.undo//")
 vim.o.undolevels=1000
-vim.o.foldcolumn="1"
 vim.o.signcolumn="yes"
 
 vim.o.list = true
