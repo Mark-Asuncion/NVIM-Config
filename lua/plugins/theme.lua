@@ -96,13 +96,15 @@ return {
         "goolord/alpha-nvim",
         opts = function(_,_)
             local dashboard = require("alpha.themes.dashboard")
-            local catppuccin_cat = {
-                "  ⟋|､",
-                " (°､ ｡ 7",
-                " |､  ~ヽ",
-                " じしf_,)〳",
+            local nvim_ascii = {
+                "███╗   ██╗██╗   ██╗██╗███╗   ███╗",
+                "████╗  ██║██║   ██║██║████╗ ████║",
+                "██╔██╗ ██║██║   ██║██║██╔████╔██║",
+                "██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║",
+                "██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║",
+                "╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
             }
-            dashboard.section.header.val = catppuccin_cat
+            dashboard.section.header.val = nvim_ascii
             dashboard.section.buttons.val = {
                 dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files<cr>"),
                 dashboard.button("n", " " .. " New file", "<cmd> ene <BAR> startinsert <cr>"),
