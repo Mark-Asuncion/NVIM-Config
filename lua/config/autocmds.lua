@@ -21,13 +21,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
 })
 vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
     callback = function(_)
-        local opts = {
-            type = "file",
-            limit = 1,
-        }
-        if not ( #vim.fs.find(".vimrc.lua", opts) == 0 ) then
+        if vim.fn.filereadable(".vimrc.lua") == 1 then
             vim.cmd[[source .vimrc.lua]]
-        elseif not ( #vim.fs.find(".vimrc", opts) == 0 ) then
+        elseif vim.fn.filereadable(".vimrc") == 1 then
             vim.cmd[[source .vimrc]]
         end
     end,
