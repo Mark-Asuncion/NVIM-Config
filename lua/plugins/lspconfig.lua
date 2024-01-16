@@ -231,13 +231,18 @@ return {
         end
     },
     {
+        "mrcjkb/rustaceanvim",
+        version = '^3',
+        ft = { 'rust' },
+    },
+    {
         "neovim/nvim-lspconfig",
         event = "VeryLazy",
         dependencies = {
             "folke/neodev.nvim",
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "simrat39/rust-tools.nvim",
+            "mrcjkb/rustaceanvim",
             "hrsh7th/nvim-cmp",
             "nvimtools/none-ls.nvim",
         },
@@ -378,6 +383,11 @@ return {
             local capabilities = cmp_nvim_lsp.default_capabilities()
 
             local function setup(server)
+                if server == "rust_analyzer" then
+                    -- skip setup for rust
+                    -- mrcjkb/rustaceanvim will handle setup
+                    return
+                end
                 local server_opts = vim.tbl_deep_extend("force", {
                     capabilities = vim.deepcopy(capabilities),
                 }, servers[server] or {})

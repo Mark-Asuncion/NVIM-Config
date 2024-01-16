@@ -22,9 +22,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
 vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
     callback = function(_)
         if vim.fn.filereadable(".vimrc.lua") == 1 then
-            vim.cmd[[source .vimrc.lua]]
+            vim.cmd[[silent! source .vimrc.lua]]
         elseif vim.fn.filereadable(".vimrc") == 1 then
-            vim.cmd[[source .vimrc]]
+            vim.cmd[[silent! source .vimrc]]
         end
     end,
 })
