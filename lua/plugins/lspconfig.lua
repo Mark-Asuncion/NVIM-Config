@@ -134,8 +134,13 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects",
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
-                config = function()
-                    require('ts_context_commentstring').setup {}
+                opts = {
+                    languages = {
+                        c = '// %s'
+                    },
+                },
+                config = function(_,opts)
+                    require('ts_context_commentstring').setup(opts)
                 end
             },
             {
