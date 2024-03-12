@@ -35,9 +35,18 @@ vim.keymap.set('n','<A-Down>','<cmd>resize -5<cr>',{})
 if vim.fn.executable("rg") then
     vim.o.grepprg="rg --vimgrep -S"
 end
-vim.api.nvim_create_user_command("Grep","grep <args>",{
-    nargs = 1,
-})
+vim.api.nvim_create_user_command("GrepWord",function(arg)
+    local word = vim.fn.expand("<cword>")
+    local file = arg.args
+    if string.len(word) == 0 then
+        return
+    end
+    vim.cmd("grep " .. word .. ' ' .. file)
+    end, {
+        desc = "Grep word under cursor",
+        nargs = '?'
+    })
+
 vim.api.nvim_create_user_command("Wrap", function()
         vim.o.wrap = not vim.o.wrap
     end,{})
