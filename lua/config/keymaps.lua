@@ -1,4 +1,5 @@
 vim.g.mapleader=" "
+vim.keymap.set('t','<Esc>','<C-\\><C-n>',{})
 vim.keymap.set({'n','i', 'v'},'<A-a>', '<Esc>',{})
 -- movement
 vim.keymap.set({'n','v'},'j', 'gj',{})
@@ -32,9 +33,6 @@ vim.keymap.set('n','<A-Right>','<cmd>vertical resize +5<cr>',{})
 vim.keymap.set('n','<A-Up>','<cmd>resize +5<cr>',{})
 vim.keymap.set('n','<A-Down>','<cmd>resize -5<cr>',{})
 
-if vim.fn.executable("rg") then
-    vim.o.grepprg="rg --vimgrep -S"
-end
 vim.api.nvim_create_user_command("GrepWord",function(arg)
     local word = vim.fn.expand("<cword>")
     local file = arg.args

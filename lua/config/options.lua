@@ -33,7 +33,7 @@ vim.opt.fillchars:append({
 })
 vim.api.nvim_exec2([[
 function! FoldText()
-    return ' ( ' . (v:foldend - v:foldstart) . ' L) ' . trim(getline(v:foldstart)) . ' ... ' . trim(getline(v:foldend))
+    return ' ( ' . (v:foldend - v:foldstart) . ' L ) ' . trim(getline(v:foldstart)) . ' ... ' . trim(getline(v:foldend))
 endfunction
 ]], { output = false })
 vim.o.foldtext="FoldText()"
@@ -52,4 +52,11 @@ vim.g.setTab = function(w)
     end
     vim.o.tabstop=w
     vim.o.shiftwidth=w
+end
+
+if vim.fn.executable("rg") then
+    vim.o.grepprg="rg --vimgrep -S"
+end
+if vim.fn.executable("/bin/zsh") then
+    vim.o.shell="/bin/zsh"
 end
