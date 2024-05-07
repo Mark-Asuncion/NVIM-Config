@@ -124,7 +124,6 @@ return {
                 "<leader>fb",
                 function()
                     require("telescope.builtin").buffers({
-                        cwd = vim.fn.getcwd(),
                         ignore_current_buffer = true,
                         sort_lastused = true,
                         sort_mru = true,
