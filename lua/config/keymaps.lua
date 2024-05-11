@@ -1,5 +1,5 @@
 vim.g.mapleader=" "
-vim.keymap.set('t','<Esc>','<C-\\><C-n>',{})
+vim.keymap.set('t','<C-BS>','<C-\\><C-n>',{})
 vim.keymap.set({'n','i', 'v'},'<A-a>', '<Esc>',{})
 -- movement
 vim.keymap.set({'n','v'},'j', 'gj',{})
