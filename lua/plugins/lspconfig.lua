@@ -136,7 +136,8 @@ return {
                 "JoosepAlviste/nvim-ts-context-commentstring",
                 opts = {
                     languages = {
-                        c = '// %s'
+                        c = '// %s',
+                        cpp = '// %s'
                     },
                 },
                 config = function(_,opts)
@@ -362,7 +363,6 @@ return {
                     vim.api.nvim_create_user_command("WorkspaceList", function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end, {})
-                    vim.api.nvim_create_user_command("References", vim.lsp.buf.references, {})
                     vim.api.nvim_create_user_command("Format", function(arg)
                         local function selRange()
                             if arg.range == 0 then

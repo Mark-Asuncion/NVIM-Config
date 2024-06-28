@@ -58,3 +58,19 @@ vim.api.nvim_create_user_command("Trim",
     end,{ range = true })
 vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
 vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })
+vim.api.nvim_create_user_command("SetTab", function(args)
+    local w = args["args"]
+    if w == '' then
+        return vim.g.setTab(4)
+    end
+    local tab = tonumber(w)
+    if tab == nil then
+        vim.notify("Argument " .. w .. " is not a number", vim.log.levels.ERROR)
+        return
+    end
+    if tab == 0 then
+        return vim.g.setTab(4)
+    end
+    vim.o.tabstop=tab
+    vim.o.shiftwidth=tab
+end,{ nargs='?' })
