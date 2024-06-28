@@ -59,7 +59,7 @@ vim.api.nvim_create_user_command("Trim",
 vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
 vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })
 vim.api.nvim_create_user_command("SetTab", function(args)
-    local w = args["args"]
+    local w = args.args
     if w == '' then
         return vim.g.setTab(4)
     end
@@ -74,3 +74,98 @@ vim.api.nvim_create_user_command("SetTab", function(args)
     vim.o.tabstop=tab
     vim.o.shiftwidth=tab
 end,{ nargs='?' })
+
+vim.api.nvim_create_user_command("Tabular", function(args)
+    local line1 = args.line1
+    local line2 = args.line2
+    local range = args.range
+    if range == 0 then
+        return
+    end
+    local function char_repeat(c, n)
+        local st = ''
+        for i=0, n, 1 do
+            st = st .. c
+        end
+        return st
+    end
+
+    local function is_colon_sep(s, st)
+        local c = string.find(s, "%s*:", st+1)
+        return c == nil
+    end
+
+    local buf = vim.api.nvim_get_current_buf()
+    local lines = vim.api.nvim_buf_get_lines(buf, line1-1, line2, false)
+    local seps = { '=', ':' }
+    local M = {}
+    local curr_line = line1
+    local tab_size = vim.o.tabstop
+    local longest = -1
+    for i = 1, #lines, 1 do
+        local line = lines[i]
+
+        local n_line = line
+        local sep = false
+        local n_st = nil
+
+        for j = 1, #seps, 1 do
+            local st = string.find(line, seps[j])
+            local col_sep = ( seps[j] == ':' and st ~=nil and is_colon_sep(line, st) )
+            if st ~= nil and col_sep then
+                local w1 = string.sub(line, 1, st-1)
+                w1 =  string.gsub(w1, "%s+$", "")
+                local w2 = string.sub(line, st+1)
+                n_line = w1 .. char_repeat(' ', tab_size) .. seps[j]
+                st =  #n_line
+                w2 = ' ' .. string.gsub(w2, "^%s+", "")
+                n_line = n_line .. w2
+                sep = true
+                n_st = st
+                break
+            else
+                st = string.find(line, "%w%s")
+                if st ~= nil then
+                    local w1 = string.sub(line, 1, st)
+                    local w2 = string.sub(line, st+1)
+                    w2 = ' ' .. string.gsub(w2, "^%s+", "")
+                    n_line = w1 .. char_repeat(' ', tab_size)
+                    n_st = #n_line + 1
+                    n_line = n_line .. w2
+                end
+            end
+        end
+        M[curr_line] = {
+            linen  = curr_line,
+            v      = n_line,
+            start  = n_st,
+            length = #n_line,
+            sep    = sep
+        }
+        if M[curr_line].start ~= nil and M[curr_line].start > longest then
+            longest = M[curr_line].start
+        end
+        curr_line = curr_line + 1
+    end
+    local replacement = {}
+
+    local function insert_space(s, amount, split_pos)
+        local w1 = string.sub(s, 1, split_pos-1)
+        local w2 = string.sub(s, split_pos)
+        return w1 .. char_repeat(' ', amount) .. w2
+    end
+
+    for i=line1, line2, 1 do
+        local v = M[i]
+        if v.start ~= nil then
+            local n_add = longest - v.start
+            if n_add ~= 0 then
+                local l = v.v
+                v.v = insert_space(l, n_add-1, v.start)
+            end
+        end
+        -- vim.print(k, v)
+        table.insert(replacement, v.v)
+    end
+    vim.api.nvim_buf_set_lines(buf, line1-1, line2, true, replacement)
+end, { range=true })
