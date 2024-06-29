@@ -106,13 +106,13 @@ vim.api.nvim_create_user_command("Tabular", function(args)
         local line = lines[i]
 
         local n_line = line
-        local sep = false
         local n_st = nil
 
         for j = 1, #seps, 1 do
             local st = string.find(line, seps[j])
             local col_sep = ( seps[j] == ':' and st ~=nil and is_colon_sep(line, st) )
-            if st ~= nil and col_sep then
+            local other_sep = ( st ~= nil and seps[j] ~= ':' )
+            if other_sep or col_sep then
                 local w1 = string.sub(line, 1, st-1)
                 w1 =  string.gsub(w1, "%s+$", "")
                 local w2 = string.sub(line, st+1)
@@ -120,7 +120,6 @@ vim.api.nvim_create_user_command("Tabular", function(args)
                 st =  #n_line
                 w2 = ' ' .. string.gsub(w2, "^%s+", "")
                 n_line = n_line .. w2
-                sep = true
                 n_st = st
                 break
             else
@@ -128,7 +127,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
                 if st ~= nil then
                     local w1 = string.sub(line, 1, st)
                     local w2 = string.sub(line, st+1)
-                    w2 = ' ' .. string.gsub(w2, "^%s+", "")
+                    w2 = string.gsub(w2, "^%s+", "")
                     n_line = w1 .. char_repeat(' ', tab_size)
                     n_st = #n_line + 1
                     n_line = n_line .. w2
@@ -136,11 +135,8 @@ vim.api.nvim_create_user_command("Tabular", function(args)
             end
         end
         M[curr_line] = {
-            linen  = curr_line,
             v      = n_line,
             start  = n_st,
-            length = #n_line,
-            sep    = sep
         }
         if M[curr_line].start ~= nil and M[curr_line].start > longest then
             longest = M[curr_line].start
@@ -164,7 +160,6 @@ vim.api.nvim_create_user_command("Tabular", function(args)
                 v.v = insert_space(l, n_add-1, v.start)
             end
         end
-        -- vim.print(k, v)
         table.insert(replacement, v.v)
     end
     vim.api.nvim_buf_set_lines(buf, line1-1, line2, true, replacement)
