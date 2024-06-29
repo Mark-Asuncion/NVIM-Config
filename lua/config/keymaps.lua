@@ -48,16 +48,42 @@ vim.api.nvim_create_user_command("GrepWord",function(arg)
 vim.api.nvim_create_user_command("Wrap", function()
         vim.o.wrap = not vim.o.wrap
     end,{})
-vim.api.nvim_create_user_command("Trim",
-    function(arg)
-        if arg.range == 0 then
-            vim.cmd[[%s/\s\+$]]
-        else
-            vim.cmd[['<,'>s/\s\+$]]
-        end
-    end,{ range = true })
+
+vim.api.nvim_create_user_command("Trim", function(args)
+    local range = args.range
+    local selected = [['<,'>]]
+    if range == 0 then
+        local win_cursor = vim.api.nvim_win_get_cursor(0)
+        selected = win_cursor[1]
+    end
+
+    local arg = args.args
+    local pattern = ""
+
+    if arg == 'b' then
+        pattern = [[^\s*\(.\{-}\)\s*$]]
+    elseif arg == 'l' then
+        pattern = [[^\s*]]
+    else
+        pattern = [[\s*$]]
+    end
+
+    if arg == 'b' then
+        vim.cmd( selected .. "s#" .. pattern .. "#" .. [[\1]])
+    else
+        vim.cmd( selected .. "s#" .. pattern .. "#")
+    end
+
+end,{
+    range = true,
+    nargs = '?',
+    desc = "Trim the selection or current line. Defaults to trim right pass `l` to trim left or `b` to trim both"
+})
+
 vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
+
 vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })
+
 vim.api.nvim_create_user_command("SetTab", function(args)
     local w = args.args
     if w == '' then
