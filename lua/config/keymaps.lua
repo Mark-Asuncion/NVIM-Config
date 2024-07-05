@@ -110,7 +110,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
     end
     local function char_repeat(c, n)
         local st = ''
-        for i=0, n, 1 do
+        for _=0, n, 1 do
             st = st .. c
         end
         return st
@@ -147,6 +147,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
                 w2 = ' ' .. string.gsub(w2, "^%s+", "")
                 n_line = n_line .. w2
                 n_st = st
+                lines[i] = n_line
                 break
             else
                 st = string.find(line, "%w%s")
@@ -157,6 +158,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
                     n_line = w1 .. char_repeat(' ', tab_size)
                     n_st = #n_line + 1
                     n_line = n_line .. w2
+                    lines[i] = n_line
                 end
             end
         end
@@ -177,6 +179,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
         return w1 .. char_repeat(' ', amount) .. w2
     end
 
+    local is_not_change_c = 0
     for i=line1, line2, 1 do
         local v = M[i]
         if v.start ~= nil then
@@ -186,7 +189,51 @@ vim.api.nvim_create_user_command("Tabular", function(args)
                 v.v = insert_space(l, n_add-1, v.start)
             end
         end
+        if v.v == lines[i-line1+1] then
+            is_not_change_c = is_not_change_c + 1
+        end
         table.insert(replacement, v.v)
+    end
+    if is_not_change_c == line2-line1+1 then
+        vim.print("no changes")
+        return
     end
     vim.api.nvim_buf_set_lines(buf, line1-1, line2, true, replacement)
 end, { range=true })
+
+vim.api.nvim_create_user_command("Separate", function(args)
+    local w = args.args
+    local line1 = args.line1
+    local line2 = args.line2
+    local sep = ','
+    if w ~= '' then
+        sep = w
+    end
+
+    local buf = vim.api.nvim_get_current_buf()
+    local lines = vim.api.nvim_buf_get_lines(buf, line1-1, line2, false)
+    local M = {}
+
+    for i=1, #lines, 1 do
+        local line = lines[i]
+        ::iterate::
+        local pos = string.find(line, sep .. '.')
+        if pos ~= nil then
+            local l = string.sub(line, 1, pos)
+            local rem = string.sub(line, pos+1)
+            l = string.match(l, '%g.*$')
+            table.insert(M, l)
+            line = rem
+            goto iterate
+        else
+            line = string.match(line, '%g.*$')
+            table.insert(M, line)
+        end
+    end
+
+    if #lines == #M then
+        return
+    end
+
+    vim.api.nvim_buf_set_lines(buf, line1-1, line2, true, M)
+end,{ nargs='?', range=true })
