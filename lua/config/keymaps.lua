@@ -110,7 +110,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
     end
     local function char_repeat(c, n)
         local st = ''
-        for _=0, n, 1 do
+        for _=1, n, 1 do
             st = st .. c
         end
         return st
@@ -186,7 +186,7 @@ vim.api.nvim_create_user_command("Tabular", function(args)
             local n_add = longest - v.start
             if n_add ~= 0 then
                 local l = v.v
-                v.v = insert_space(l, n_add-1, v.start)
+                v.v = insert_space(l, n_add, v.start)
             end
         end
         if v.v == lines[i-line1+1] then
