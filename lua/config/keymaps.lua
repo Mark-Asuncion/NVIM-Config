@@ -236,4 +236,5 @@ vim.api.nvim_create_user_command("Separate", function(args)
     end
 
     vim.api.nvim_buf_set_lines(buf, line1-1, line2, true, M)
+    vim.cmd(':' .. line1 .. ' | :normal =' .. #M-1 .. 'j')
 end,{ nargs='?', range=true })
