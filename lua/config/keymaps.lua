@@ -33,17 +33,17 @@ vim.keymap.set('n','<A-Right>','<cmd>vertical resize +5<cr>',{})
 vim.keymap.set('n','<A-Up>','<cmd>resize +5<cr>',{})
 vim.keymap.set('n','<A-Down>','<cmd>resize -5<cr>',{})
 
-vim.api.nvim_create_user_command("GrepWord",function(arg)
+vim.api.nvim_create_user_command("GrepWord",function(args)
     local word = vim.fn.expand("<cword>")
-    local file = arg.args
-    if string.len(word) == 0 then
+    if string.len(word) == 0 or true then
         return
     end
-    vim.cmd("grep " .. word .. ' ' .. file)
-    end, {
-        desc = "Grep word under cursor",
-        nargs = '?'
-    })
+    vim.cmd("grep " .. word .. '%')
+end, {
+        desc     = "Grep word under cursor",
+        nargs    = 0,
+        range    = true
+})
 
 vim.api.nvim_create_user_command("Wrap", function()
         vim.o.wrap = not vim.o.wrap

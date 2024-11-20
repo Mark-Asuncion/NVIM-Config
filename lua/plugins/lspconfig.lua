@@ -29,16 +29,18 @@ return {
             "saadparwaiz1/cmp_luasnip",
             {
                 "L3MON4D3/LuaSnip",
+                version = "v2.*",
+                build = "make install_jsregexp",
                 dependencies = {
                     "rafamadriz/friendly-snippets",
-                    config = function()
-                        require("luasnip.loaders.from_vscode").lazy_load()
-                    end,
                 },
                 opts = {
                     history = true,
                     delete_check_events = "TextChanged",
-                }
+                },
+                config = function()
+                    require("luasnip.loaders.from_vscode").lazy_load()
+                end
             },
             "petertriho/cmp-git",
             "hrsh7th/cmp-cmdline",
@@ -135,6 +137,7 @@ return {
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
                 opts = {
+                    enable_autocmd = false,
                     languages = {
                         c = '// %s',
                         cpp = '// %s'
@@ -142,6 +145,7 @@ return {
                 },
                 config = function(_,opts)
                     require('ts_context_commentstring').setup(opts)
+                    vim.g.skip_ts_context_comments_string_module = true
                 end
             },
             {
@@ -190,7 +194,7 @@ return {
                 additional_vim_regex_highlighting = true,
             },
             indent = { enable = true },
-            context_commentstring = { enable = true },
+            -- context_commentstring = { enable = true },
             textobjects = {
                 select = {
                     enable = true,
@@ -200,7 +204,7 @@ return {
             }
         },
         config = function(_,opts)
-             require("nvim-treesitter.configs").setup(opts)
+            require("nvim-treesitter.configs").setup(opts)
             vim.cmd[[ set foldmethod=expr ]]
             vim.cmd[[ set foldexpr=nvim_treesitter#foldexpr() ]]
             vim.o.foldlevel=99
