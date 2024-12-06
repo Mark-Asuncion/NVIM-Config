@@ -242,8 +242,8 @@ return {
     },
     {
         "mrcjkb/rustaceanvim",
-        version = '^3',
-        ft = { 'rust' },
+        version = '^5',
+        lazy = false,
     },
     {
         "neovim/nvim-lspconfig",
