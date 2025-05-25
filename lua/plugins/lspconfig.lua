@@ -391,6 +391,7 @@ return {
             local cmp_nvim_lsp = require("cmp_nvim_lsp")
             local capabilities = cmp_nvim_lsp.default_capabilities()
 
+            local lspconfig = require("lspconfig")
             local function setup(server)
                 if server == "rust_analyzer" then
                     -- skip setup for rust
@@ -400,7 +401,30 @@ return {
                 local server_opts = vim.tbl_deep_extend("force", {
                     capabilities = vim.deepcopy(capabilities),
                 }, servers[server] or {})
-                require("lspconfig")[server].setup(server_opts)
+                if server == 'omnisharp' then
+                    vim.g.OmniSharp_server_use_net6 = 1
+                    vim.g.OmniSharp_highlighting = 0
+                    lspconfig[server].setup({
+                        capabilities = capabilities,
+                        cmd = {
+                            "omnisharp",
+                            "--languageserver",
+                            "--hostPID",
+                            tostring(vim.fn.getpid())
+                        },
+                        settings = {
+                            RoslynExtensionsOptions = {
+                                enableDecompilationSupport = false,
+                                enableImportCompletion = true,
+                                enableAnalyzersSupport = true,
+                                enableEditorConfigSupport = true
+                            }
+                        },
+                        root_dir = lspconfig.util.root_pattern("*.sln")
+                    })
+                else
+                    lspconfig[server].setup(server_opts)
+                end
             end
 
             local ensure_installed = {}
