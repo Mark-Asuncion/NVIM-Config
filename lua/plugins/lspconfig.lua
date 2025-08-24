@@ -346,7 +346,7 @@ return {
             end
 
             local ensure_installed = {}
-            local mappings_server = require("mason-lspconfig.mappings.server")
+            local mappings_server = require("mason-lspconfig.mappings").get_mason_map()
             local mason_reg = require("mason-registry")
             for _, name in pairs(vim.tbl_keys(mappings_server.lspconfig_to_package)) do
                 if vim.tbl_contains(ensure_installed_package,mappings_server.lspconfig_to_package[name]) then
