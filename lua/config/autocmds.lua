@@ -12,13 +12,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
             timeout=150 }
     end,
 })
-vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
+vim.api.nvim_create_autocmd("VimEnter", {
     callback = function(_)
         local cwd = vim.fn.getcwd()
-        if vim.fn.filereadable(cwd .. ".vimrc.lua") == 1 then
-            vim.cmd[[silent! source .vimrc.lua]]
-        elseif vim.fn.filereadable(cwd .. ".vimrc") == 1 then
-            vim.cmd[[silent! source .vimrc]]
+        local vimrclua = cwd .. "/.vimrc.lua"
+        local vimrc = cwd .. "/.vimrc"
+        if vim.fn.filereadable(vimrclua) == 1 then
+            vim.cmd("silent! source" .. vimrclua)
+        elseif vim.fn.filereadable(vimrc) == 1 then
+            vim.cmd("silent! source" .. vimrc)
         end
     end,
 })
