@@ -44,7 +44,7 @@ M.FILE_EX = {
                 file_encoding = "utf-8",
                 search_dirs = search_dirs
             })
-        end, { nargs='?', desc = "Grep on directory default 'cwd'"})
+        end, { nargs='?', desc = "Grep on directory default 'cwd'", complete = "dir_in_path"})
 
         return {
             {

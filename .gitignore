@@ -1,4 +1,4 @@
 *.log
 undo/*
 logs/*
-lazy-lock.json
+# lazy-lock.json

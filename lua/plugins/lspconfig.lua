@@ -1,14 +1,14 @@
 local ensure_installed_package = {
-    "bash-language-server",
-    "clangd",
+    -- "bash-language-server",
+    -- "clangd",
     "css-lsp",
     "html-lsp",
-    "json-lsp",
-    "lua-language-server",
-    "pyright",
-    "rust-analyzer",
-    "typescript-language-server",
-    "vim-language-server"
+    -- "json-lsp",
+    -- "lua-language-server",
+    -- "pyright",
+    -- "rust-analyzer",
+    -- "typescript-language-server",
+    -- "vim-language-server"
 }
 
 return {
