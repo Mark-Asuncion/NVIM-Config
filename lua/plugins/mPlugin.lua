@@ -7,9 +7,7 @@ return {
         "mbbill/undotree",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         event = { "InsertEnter" },
-        keys = {
-            { "<F5>", vim.cmd.UndotreeToggle, desc = "Undo Tree Toggle" }
-        },
+        keys = require("config.plugin_keymaps").FILE_EX.undo,
     },
     {
         "folke/which-key.nvim",

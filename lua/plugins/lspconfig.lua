@@ -242,7 +242,7 @@ return {
     },
     {
         "mrcjkb/rustaceanvim",
-        version = '^5',
+        version = '^6',
         lazy = false,
     },
     {
@@ -275,19 +275,7 @@ return {
                 formatting_options = nil,
                 timeout_ms = nil,
             },
-            setup = {
-                rust_analyzer = function(_, opts)
-                    local rt = require("rust-tools")
-                    local opt = opts
-                    opt.on_attach = function(_, bufnr)
-                        vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
-                        -- Code action groups
-                        vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
-                    end
-                    rt.setup({ server = opt })
-                    return true
-                end,
-            },
+            setup = { },
             servers = {
                 lua_ls = {
                     settings = {
@@ -307,84 +295,14 @@ return {
             }
         },
         config = function(_,opts)
-            local border = {
-                { "╭", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╮", "FloatBorder" },
-                { "│", "FloatBorder" },
-                { "╯", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╰", "FloatBorder" },
-                { "│", "FloatBorder" },
-            }
+            local THEME = require("config.theme")
             local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
             function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
                 opts = opts or {}
-                opts.border = opts.border or border
+                opts.border = opts.border or THEME.LSP_BORDER
                 return orig_util_open_floating_preview(contents, syntax, opts, ...)
             end
             require('lspconfig.ui.windows').default_options.border = 'rounded'
-
-            vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float)
-            vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-            vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-            vim.keymap.set('n', ']e', function()
-                vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-            end)
-            vim.keymap.set('n', '[e', function()
-                vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
-            end)
-            vim.keymap.set('n', ']w', function()
-                vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
-            end)
-            vim.keymap.set('n', '[w', function()
-                vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
-            end)
-            vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
-
-            vim.api.nvim_create_autocmd('LspAttach', {
-                group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-                callback = function(ev)
-                    -- Enable completion triggered by <c-x><c-o>
-                    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-                    -- Buffer local mappings.
-                    -- See `:help vim.lsp.*` for documentation on any of the below functions
-                    local aug_opts = { buffer = ev.buf }
-                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, aug_opts)
-                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, aug_opts)
-                    vim.keymap.set('n', 'K', vim.lsp.buf.hover, aug_opts)
-                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, aug_opts)
-                    vim.keymap.set('n', '<leader>ck', vim.lsp.buf.signature_help, aug_opts)
-                    vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, aug_opts)
-                    vim.keymap.set('n', '<leader>cD', vim.lsp.buf.type_definition, aug_opts)
-                    vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, aug_opts)
-                    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, aug_opts)
-                    vim.keymap.set('n', 'gr', vim.lsp.buf.references, aug_opts)
-
-                    vim.api.nvim_create_user_command("WorkspaceAdd", vim.lsp.buf.add_workspace_folder, {})
-                    vim.api.nvim_create_user_command("WorkspaceRm", vim.lsp.buf.remove_workspace_folder, {})
-                    vim.api.nvim_create_user_command("WorkspaceList", function()
-                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                    end, {})
-                    vim.api.nvim_create_user_command("Format", function(arg)
-                        local function selRange()
-                            if arg.range == 0 then
-                                return nil
-                            end
-                            return {
-                                ["start"] = { arg.line1, 0 },
-                                ["end"] = { arg.line2, 0 }
-                            }
-                        end
-                        vim.lsp.buf.format({
-                            buffer = 0,
-                            async = true,
-                            range = selRange()
-                        })
-                    end, { range = true })
-                end
-            })
 
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
             local servers = opts.servers

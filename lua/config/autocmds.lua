@@ -14,16 +14,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
     callback = function(_)
-        if vim.bo.buftype == "help" or vim.bo.buftype == "quickfix" then
-            vim.keymap.set('n','q','<cmd>bw<cr>',{ noremap=true, buffer=true })
-        end
-    end,
-})
-vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
-    callback = function(_)
-        if vim.fn.filereadable(".vimrc.lua") == 1 then
+        local cwd = vim.fn.getcwd()
+        if vim.fn.filereadable(cwd .. ".vimrc.lua") == 1 then
             vim.cmd[[silent! source .vimrc.lua]]
-        elseif vim.fn.filereadable(".vimrc") == 1 then
+        elseif vim.fn.filereadable(cwd .. ".vimrc") == 1 then
             vim.cmd[[silent! source .vimrc]]
         end
     end,

@@ -1,5 +1,5 @@
 vim.o.guicursor="i:block"
-vim.o.relativenumber=true
+vim.o.relativenumber=false
 vim.o.scrolloff=20
 vim.o.incsearch=true
 vim.o.hlsearch=false

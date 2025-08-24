@@ -1,3 +1,4 @@
+local PLUGIN_KEYMAPS = require("config.plugin_keymaps")
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -7,13 +8,7 @@ return {
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
         },
-        keys = {
-            {
-                "<leader>e",
-                "<cmd>Neotree toggle float reveal position=float<cr>",
-                desc = "Toggle NeoTree",
-            },
-        },
+        keys = PLUGIN_KEYMAPS.FILE_EX.toggle_file_ex,
         opts = {
             close_if_last_window = true,
             filesystem = {
@@ -81,85 +76,7 @@ return {
             "nvim-lua/plenary.nvim",
         },
         cmd = { "Telescope" },
-        keys = {
-            {
-                "<leader>ff",
-                function()
-                    require("telescope.builtin").find_files({
-                        no_ignore = false,
-                        no_ignore_parent = false,
-                    })
-                end,
-                desc = "Telescope Files"
-            },
-            {
-                "<leader>fF",
-                function()
-                    require("telescope.builtin").git_files({
-                        no_ignore = false,
-                        no_ignore_parent = false,
-                    })
-                end,
-                desc = "Telescope Git Files"
-            },
-            {
-                "<leader>fh",
-                function()
-                    require("telescope.builtin").find_files({
-                        hidden = true,
-                        no_ignore = true,
-                        no_ignore_parent = true,
-                    })
-                end,
-                desc = "Telescope Files (Includes hidden)"
-            },
-            {
-                "<leader>fs",
-                function()
-                    require("telescope.builtin").treesitter()
-                end,
-                desc = "Telescope Symbols"
-            },
-            {
-                "<leader>fb",
-                function()
-                    require("telescope.builtin").buffers({
-                        ignore_current_buffer = true,
-                        sort_lastused = true,
-                        sort_mru = true,
-                    })
-                end,
-                desc = "Telescope Buffers"
-            },
-            {
-                "<leader>fB",
-                function()
-                    require("telescope.builtin").current_buffer_fuzzy_find()
-                end,
-                desc = "Telescope Live Grep on Current Buffer"
-            },
-            {
-                "<leader>fgs",
-                function()
-                    require("telescope.builtin").git_status()
-                end,
-                desc = "Telescope Git Status"
-            },
-            {
-                "<leader>fgb",
-                function()
-                    require("telescope.builtin").git_branches()
-                end,
-                desc = "Telescope Git Branches"
-            },
-            {
-                "<leader>fG",
-                function()
-                    require("telescope.builtin").live_grep()
-                end,
-                desc = "Telescope Live Grep"
-            }
-        },
+        keys = function(_, _) return PLUGIN_KEYMAPS.FILE_EX.finder() end,
         config = function(_, opts)
             require("telescope").setup(opts)
         end,
@@ -179,18 +96,7 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
-        keys = {
-            {
-                "]h",
-                "<cmd>Gitsigns next_hunk<cr>",
-                desc = "Git next hunk"
-            },
-            {
-                "[h",
-                "<cmd>Gitsigns prev_hunk<cr>",
-                desc = "Git prev hunk"
-            }
-        },
+        keys = PLUGIN_KEYMAPS.GIT.keys,
         config = function()
             require("gitsigns").setup()
             vim.api.nvim_create_user_command("Gitblame", "Gitsigns blame_line",{ desc = "Git Blame" })

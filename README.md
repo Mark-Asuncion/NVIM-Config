@@ -16,7 +16,8 @@ git clone https://github.com/Mark-Asuncion/NVIM-Config.git nvim
 
 # Optional Requirements
 - rg : For Grepping
-
+# CUSTOM CONFIG FOR PROJECTS
+Create a file called ```.vimrc``` or ```.vimrc.lua``` in the root folder of the project
 # ENABLING OPTIONAL PLUGINS
 files prefix with ```o_*.lua``` is an optional plugin and will not be loaded unless a ENV variable is set
 ```

@@ -5,26 +5,33 @@ vim.keymap.set({'n','i', 'v'},'<A-a>', '<Esc>',{})
 vim.keymap.set({'n','v'},'j', 'gj',{})
 vim.keymap.set({'n','v'},'k', 'gk',{})
 -- selection
-vim.keymap.set('n','<leader>V', 'v$h',{})
+-- vim.keymap.set('n','<leader>V', 'v$h',{})
 -- copy and pasting
 vim.keymap.set('n','<leader>ay', '<cmd>%y+<CR>',{})
 vim.keymap.set('n','<leader>Y', '"+y$',{})
 vim.keymap.set('v','<leader>y', '"+y',{})
 vim.keymap.set({'n','v'},'<leader>p', '"+p',{})
 vim.keymap.set({'n','v'},'<leader>P', '"+P',{})
-vim.keymap.set('v','p','"0p',{})
-vim.keymap.set('v','P','"0P',{})
+-- vim.keymap.set('v','p','"0p',{})
+-- vim.keymap.set('v','P','"0P',{})
 -- buffer
 vim.keymap.set('n','<S-h>', '<cmd>bp<CR>',{})
 vim.keymap.set('n','<S-l>', '<cmd>bn<CR>',{})
 vim.keymap.set('n','<leader>w','<cmd>bw<CR>',{})
 vim.keymap.set('n','<leader>W','<cmd>bw!<CR>',{})
+vim.api.nvim_create_autocmd({ 'BufEnter','BufWinEnter' }, {
+    callback = function(_)
+        if vim.bo.buftype == "help" or vim.bo.buftype == "quickfix" then
+            vim.keymap.set('n','q','<cmd>bw<cr>',{ noremap=true, buffer=true })
+        end
+    end,
+})
 -- quickfix navi
 vim.keymap.set('n','<C-j>','<cmd>cn<CR>',{})
 vim.keymap.set('n','<C-k>','<cmd>cp<CR>',{})
 -- scrolling
-vim.keymap.set('n','<A-j>', '10j',{})
-vim.keymap.set('n','<A-k>', '10k',{})
+-- vim.keymap.set('n','<A-j>', '10j',{})
+-- vim.keymap.set('n','<A-k>', '10k',{})
 vim.keymap.set('n','<C-d>','<C-d>zz',{})
 vim.keymap.set('n','<C-u>','<C-u>zz',{})
 -- resizing windows
@@ -33,7 +40,7 @@ vim.keymap.set('n','<A-Right>','<cmd>vertical resize +5<cr>',{})
 vim.keymap.set('n','<A-Up>','<cmd>resize +5<cr>',{})
 vim.keymap.set('n','<A-Down>','<cmd>resize -5<cr>',{})
 
-vim.api.nvim_create_user_command("GrepWord",function(args)
+vim.api.nvim_create_user_command("GrepWord",function(_)
     local word = vim.fn.expand("<cword>")
     if string.len(word) == 0 or true then
         return
@@ -238,3 +245,66 @@ vim.api.nvim_create_user_command("Separate", function(args)
     vim.api.nvim_buf_set_lines(buf, line1-1, line2, true, M)
     vim.cmd(':' .. line1 .. ' | :normal =' .. #M-1 .. 'j')
 end,{ nargs='?', range=true })
+
+-- LSP KEYMAPS
+vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', ']e', function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end)
+vim.keymap.set('n', '[e', function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end)
+vim.keymap.set('n', ']w', function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+end)
+vim.keymap.set('n', '[w', function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+end)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, {
+})
+
+vim.api.nvim_create_user_command("WorkspaceAdd", vim.lsp.buf.add_workspace_folder, {})
+vim.api.nvim_create_user_command("WorkspaceRm", vim.lsp.buf.remove_workspace_folder, {})
+vim.api.nvim_create_user_command("WorkspaceList", function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, {})
+vim.api.nvim_create_user_command("Format", function(arg)
+    local function selRange()
+        if arg.range == 0 then
+            return nil
+        end
+        return {
+            ["start"] = { arg.line1, 0 },
+            ["end"] = { arg.line2, 0 }
+        }
+    end
+    vim.lsp.buf.format({
+        buffer = 0,
+        async = true,
+        range = selRange()
+    })
+end, { range = true })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local aug_opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, aug_opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, aug_opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, aug_opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, aug_opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, aug_opts)
+        vim.keymap.set('n', '<leader>ck', vim.lsp.buf.signature_help, aug_opts)
+        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, aug_opts)
+        vim.keymap.set('n', '<leader>cD', vim.lsp.buf.type_definition, aug_opts)
+        vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, aug_opts)
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, aug_opts)
+    end
+})
