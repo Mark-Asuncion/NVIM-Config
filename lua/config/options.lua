@@ -46,9 +46,11 @@ vim.o.smartindent=true
 vim.o.splitbelow=true
 vim.o.splitright=true
 
-if vim.fn.executable("rg") then
+if vim.fn.executable("rg") == 1 then
     vim.o.grepprg="rg --vimgrep -S"
 end
-if vim.fn.executable("/bin/zsh") then
+if vim.fn.executable("/bin/zsh") == 1 then
     vim.o.shell="/bin/zsh"
+elseif vim.fn.executable("pwsh.exe") == 1 then
+    vim.o.shell="pwsh.exe"
 end
