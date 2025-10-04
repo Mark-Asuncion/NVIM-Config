@@ -24,3 +24,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
         end
     end,
 })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspDiagnostic', { }),
+    callback = function(_)
+        vim.diagnostic.config(vim.deepcopy(require("config.lsp").diagnostic))
+    end
+})

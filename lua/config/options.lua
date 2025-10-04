@@ -40,6 +40,7 @@ vim.o.foldtext="FoldText()"
 vim.o.colorcolumn="160"
 vim.o.pumblend=0
 vim.o.winbar=' '
+vim.o.winborder = "bold"
 vim.o.ignorecase=true
 vim.o.smartcase=true
 vim.o.smartindent=true

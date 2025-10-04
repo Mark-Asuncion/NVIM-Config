@@ -288,7 +288,7 @@ vim.api.nvim_create_user_command("Format", function(arg)
 end, { range = true })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    group = vim.api.nvim_create_augroup('UserLspKeymaps', {}),
     callback = function(ev)
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'

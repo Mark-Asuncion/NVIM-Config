@@ -1,16 +1,3 @@
-local ensure_installed_package = {
-    -- "bash-language-server",
-    -- "clangd",
-    "css-lsp",
-    "html-lsp",
-    -- "json-lsp",
-    -- "lua-language-server",
-    -- "pyright",
-    -- "rust-analyzer",
-    -- "typescript-language-server",
-    -- "vim-language-server"
-}
-
 return {
     {
         "hrsh7th/nvim-cmp",
@@ -218,9 +205,25 @@ return {
         cmd = "Mason",
         opts = {
             ui = {
-                border="rounded"
+                border="solid"
             },
-        }
+        },
+        config = function()
+            require("mason").setup()
+            local ensure_installed = {}
+            local mappings_server = require("mason-lspconfig.mappings").get_mason_map()
+            local ensure_installed_package = require("config.lsp").packages
+            for _, name in pairs(vim.tbl_keys(mappings_server.lspconfig_to_package)) do
+                if vim.tbl_contains(ensure_installed_package,mappings_server.lspconfig_to_package[name]) then
+                    ensure_installed[#ensure_installed+1] = name
+                end
+            end
+
+            require("mason-lspconfig").setup({
+                ensure_installed = ensure_installed,
+                automatic_installation = true,
+            })
+        end
     },
     {
         "nvimtools/none-ls.nvim",
@@ -255,114 +258,6 @@ return {
             "mrcjkb/rustaceanvim",
             "hrsh7th/nvim-cmp",
             "nvimtools/none-ls.nvim",
-        },
-        opts = {
-            diagnostics = {
-                underline = true,
-                update_in_insert = false,
-                virtual_text = {
-                    spacing = 4,
-                    source = "if_many",
-                    prefix = "󰝤",
-                },
-                severity_sort = true,
-            },
-            inlay_hints = {
-                enabled = false,
-            },
-            autoformat = false,
-            format = {
-                formatting_options = nil,
-                timeout_ms = nil,
-            },
-            setup = { },
-            servers = {
-                lua_ls = {
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { 'vim' }
-                            },
-                            workspace = {
-                                checkThirdParty = false,
-                            },
-                            completion = {
-                                callSnippet = "Replace",
-                            },
-                        },
-                    },
-                }
-            }
-        },
-        config = function(_,opts)
-            local THEME = require("config.theme")
-            local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-            function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-                opts = opts or {}
-                opts.border = opts.border or THEME.LSP_BORDER
-                return orig_util_open_floating_preview(contents, syntax, opts, ...)
-            end
-            require('lspconfig.ui.windows').default_options.border = 'rounded'
-
-            vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-            local servers = opts.servers
-            local cmp_nvim_lsp = require("cmp_nvim_lsp")
-            local capabilities = cmp_nvim_lsp.default_capabilities()
-
-            local lspconfig = require("lspconfig")
-            local function setup(server)
-                if server == "rust_analyzer" then
-                    -- skip setup for rust
-                    -- mrcjkb/rustaceanvim will handle setup
-                    return
-                end
-                local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = vim.deepcopy(capabilities),
-                }, servers[server] or {})
-                if server == 'omnisharp' then
-                    vim.g.OmniSharp_server_use_net6 = 1
-                    vim.g.OmniSharp_highlighting = 0
-                    lspconfig[server].setup({
-                        capabilities = capabilities,
-                        cmd = {
-                            "omnisharp",
-                            "--languageserver",
-                            "--hostPID",
-                            tostring(vim.fn.getpid())
-                        },
-                        settings = {
-                            RoslynExtensionsOptions = {
-                                enableDecompilationSupport = false,
-                                enableImportCompletion = true,
-                                enableAnalyzersSupport = true,
-                                enableEditorConfigSupport = true
-                            }
-                        },
-                        root_dir = lspconfig.util.root_pattern("*.sln")
-                    })
-                else
-                    lspconfig[server].setup(server_opts)
-                end
-            end
-
-            local ensure_installed = {}
-            local mappings_server = require("mason-lspconfig.mappings").get_mason_map()
-            local mason_reg = require("mason-registry")
-            for _, name in pairs(vim.tbl_keys(mappings_server.lspconfig_to_package)) do
-                if vim.tbl_contains(ensure_installed_package,mappings_server.lspconfig_to_package[name]) then
-                    ensure_installed[#ensure_installed+1] = name
-                end
-                if mason_reg.is_installed(mappings_server.lspconfig_to_package[name]) then
-                    setup(name)
-                end
-            end
-
-            require("mason-lspconfig").setup({
-                ensure_installed = ensure_installed,
-                automatic_installation = true,
-                handlers = { setup }
-            })
-
-        end,
+        }
     }
 }
