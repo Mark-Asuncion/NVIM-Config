@@ -113,6 +113,8 @@ return {
                     { name = 'path' }
                 })
             })
+
+            require("luasnip.loaders.from_snipmate").lazy_load()
         end
     },
     {
