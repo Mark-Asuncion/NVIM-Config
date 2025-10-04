@@ -43,12 +43,12 @@ return {
                     end,
                 },
                 window = {
-                    completion = cmp.config.window.bordered({
-                        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-                    }),
-                    documentation = cmp.config.window.bordered({
-                        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-                    }),
+                    completion = {
+                        border = vim.o.winborder
+                    },
+                    documentation = {
+                        border = vim.o.winborder
+                    },
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -205,7 +205,7 @@ return {
         cmd = "Mason",
         opts = {
             ui = {
-                border="solid"
+                border=vim.o.winborder
             },
         },
         config = function()
