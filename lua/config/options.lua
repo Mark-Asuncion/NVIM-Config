@@ -29,7 +29,7 @@ vim.opt.fillchars:append({
     fold = "─",
     foldclose = "",
     foldopen = "",
-    diff = "╱"
+    diff = " "
 })
 vim.api.nvim_exec2([[
 function! FoldText()
