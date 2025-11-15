@@ -31,6 +31,7 @@ vim.opt.fillchars:append({
     foldopen = "",
     diff = " "
 })
+vim.opt.diffopt="internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
 vim.api.nvim_exec2([[
 function! FoldText()
     return ' ( ' . (v:foldend - v:foldstart) . ' L ) ' . trim(getline(v:foldstart)) . ' ... ' . trim(getline(v:foldend))
