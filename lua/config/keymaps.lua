@@ -87,9 +87,27 @@ end,{
     desc = "Trim the selection or current line. Defaults to trim right pass `l` to trim left or `b` to trim both"
 })
 
-vim.api.nvim_create_user_command("CpFileCWD","let @+ = expand(\"%\")",{ desc = "Copy Filename path relative to cwd" })
+vim.api.nvim_create_user_command("CpPathRel", function()
+    local buf_path = vim.api.nvim_buf_get_name(0)
+    local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+    local rel_path = ""
 
-vim.api.nvim_create_user_command("CpFileRoot","let @+ = expand(\"%:p\")",{ desc = "Copy Filename path from root" })
+    if git_root == nil or git_root == '' then
+        rel_path = vim.fn.fnamemodify(buf_path, ":.")
+    else
+        rel_path = vim.fn.expand(buf_path)
+        rel_path = vim.fn.substitute(rel_path, git_root, ".", "")
+    end
+
+    vim.fn.setreg("+", rel_path)
+    vim.print("Copied " .. rel_path);
+end,{ desc = "Copy file path relative to cwd" })
+
+vim.api.nvim_create_user_command("CpPathRoot",function()
+    local path = vim.fn.expand("%")
+    vim.fn.setreg("+", path)
+    vim.print("Copied " .. path);
+end,{ desc = "Copy file path from root" })
 
 vim.api.nvim_create_user_command("SetTab", function(args)
     local w = args.args
