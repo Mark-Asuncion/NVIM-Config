@@ -106,10 +106,10 @@ return {
             }
             dashboard.section.header.val = nvim_ascii
             dashboard.section.buttons.val = {
-                dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files<cr>"),
+                dashboard.button("f", " " .. " Find file", "<cmd>lua Snacks.picker.files() <cr>"),
                 dashboard.button("n", " " .. " New file", "<cmd> ene <BAR> startinsert <cr>"),
-                dashboard.button("r", " " .. " Recent files", "<cmd> Telescope oldfiles <cr>"),
-                dashboard.button("g", " " .. " Find text", "<cmd> Telescope live_grep <cr>"),
+                -- dashboard.button("r", " " .. " Recent files", "<cmd> Telescope oldfiles <cr>"),
+                dashboard.button("g", " " .. " Find text", "<cmd>lua Snacks.picker.grep() <cr>"),
                 dashboard.button("c", " " .. " Config", "<cmd> e $MYVIMRC <cr>"),
                 dashboard.button("s", " " .. " Restore Session", [[<cmd> lua require("persistence").load() <cr>]]),
                 dashboard.button("l", "󰒲 " .. " Lazy", "<cmd> Lazy <cr>"),

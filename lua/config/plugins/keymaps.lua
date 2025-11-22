@@ -16,6 +16,10 @@ M.LSP_RUST = {
     end
 }
 
+M.Undo = {
+    { "<F5>", vim.cmd.UndotreeToggle, desc = "Undo Tree Toggle" }
+}
+
 M.FILE_EX = {
     toggle_file_ex = {
         {
@@ -23,9 +27,6 @@ M.FILE_EX = {
             "<cmd>Neotree toggle float reveal position=float<cr>",
             desc = "Toggle NeoTree",
         },
-    },
-    undo = {
-        { "<F5>", vim.cmd.UndotreeToggle, desc = "Undo Tree Toggle" }
     },
     finder = function()
         local telescope_builtin = require("telescope.builtin")
@@ -141,6 +142,30 @@ M.GIT = {
             desc = "Git prev hunk"
         }
     }
+}
+
+M.Snacks = {
+    setup = function ()
+        vim.keymap.set('n','<leader>ff',function()
+            Snacks.picker.files()
+        end,{})
+        vim.keymap.set('n','<leader>fb',function()
+            Snacks.picker.buffers()
+        end,{})
+        vim.keymap.set('n','<leader>fg',function()
+            Snacks.picker.git_files()
+        end,{})
+        vim.keymap.set('n','<leader>/',function()
+            Snacks.picker.grep()
+        end,{})
+        vim.keymap.set('n','<leader>e',function()
+            Snacks.explorer()
+        end,{})
+
+        vim.keymap.set('n','<leader>fs',function()
+            Snacks.picker.lsp_symbols()
+        end,{})
+    end
 }
 
 return M
