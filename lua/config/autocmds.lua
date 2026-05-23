@@ -36,9 +36,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- nvim-treesitter
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = { 'typescriptreact' },
---   callback = function()
---       vim.treesitter.start()
---   end,
--- })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*' },
+  callback = function()
+      pcall(vim.treesitter.start)
+  end,
+})
