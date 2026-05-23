@@ -121,38 +121,38 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "VeryLazy",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                opts = {
-                    enable_autocmd = false,
-                    languages = {
-                        c = '// %s',
-                        cpp = '// %s'
-                    },
-                },
-                config = function(_,opts)
-                    require('ts_context_commentstring').setup(opts)
-                    vim.g.skip_ts_context_comments_string_module = true
-                end
-            },
-            {
-                "nvim-treesitter/nvim-treesitter-context",
-                opts = {
-                    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-                    max_lines = 2, -- How many lines the window should span. Values <= 0 mean no limit.
-                    min_window_height = 2, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-                    line_numbers = true,
-                    multiline_threshold = 20, -- Maximum number of lines to show for a single context
-                    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-                    mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
-                    separator = "─",
-                    zindex = 20, -- The Z-index of the context window
-                    on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-                },
-            }
-        },
+        -- dependencies = {
+        --     "nvim-treesitter/nvim-treesitter-textobjects",
+        --     {
+        --         "JoosepAlviste/nvim-ts-context-commentstring",
+        --         opts = {
+        --             enable_autocmd = false,
+        --             languages = {
+        --                 c = '// %s',
+        --                 cpp = '// %s'
+        --             },
+        --         },
+        --         config = function(_,opts)
+        --             require('ts_context_commentstring').setup(opts)
+        --             vim.g.skip_ts_context_comments_string_module = true
+        --         end
+        --     },
+        --     {
+        --         "nvim-treesitter/nvim-treesitter-context",
+        --         opts = {
+        --             enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        --             max_lines = 2, -- How many lines the window should span. Values <= 0 mean no limit.
+        --             min_window_height = 2, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        --             line_numbers = true,
+        --             multiline_threshold = 20, -- Maximum number of lines to show for a single context
+        --             trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        --             mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+        --             separator = "─",
+        --             zindex = 20, -- The Z-index of the context window
+        --             on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+        --         },
+        --     }
+        -- },
         opts = {
             ensure_installed = {
                 "bash",
@@ -178,11 +178,11 @@ return {
             },
             sync_install = false,
             auto_install = true,
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = true,
-            },
-            indent = { enable = true },
+            -- highlight = {
+            --     enable = true,
+            --     additional_vim_regex_highlighting = true,
+            -- },
+            -- indent = { enable = true },
             -- context_commentstring = { enable = true },
             textobjects = {
                 select = {
@@ -193,10 +193,7 @@ return {
             }
         },
         config = function(_,opts)
-            require("nvim-treesitter.configs").setup(opts)
-            vim.cmd[[ set foldmethod=expr ]]
-            vim.cmd[[ set foldexpr=nvim_treesitter#foldexpr() ]]
-            vim.o.foldlevel=99
+            require("nvim-treesitter").setup(opts)
         end
     },
     {

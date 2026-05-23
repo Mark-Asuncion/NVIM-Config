@@ -29,5 +29,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspDiagnostic', { }),
     callback = function(_)
         vim.diagnostic.config(vim.deepcopy(require("config.lsp").diagnostic))
+        vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.o.foldmethod = 'expr'
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end
 })
+
+-- nvim-treesitter
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = { 'typescriptreact' },
+--   callback = function()
+--       vim.treesitter.start()
+--   end,
+-- })

@@ -7,6 +7,8 @@
 ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ 
 </pre>
 
+> Last Tested v0.12.1
+
 Backup of my neovim config I use on Windows and Linux
 
 # INSTALL

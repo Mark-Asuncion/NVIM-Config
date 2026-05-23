@@ -48,6 +48,11 @@ vim.o.smartindent=true
 vim.o.splitbelow=true
 vim.o.splitright=true
 
+vim.o.foldlevel=99
+vim.o.foldlevelstart=-1
+vim.o.foldnestmax=5
+vim.o.foldminlines=1
+
 if vim.fn.executable("rg") == 1 then
     vim.o.grepprg="rg --vimgrep -S"
 end
