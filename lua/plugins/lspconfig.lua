@@ -258,5 +258,10 @@ return {
             "hrsh7th/nvim-cmp",
             "nvimtools/none-ls.nvim",
         }
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = { }
     }
 }
